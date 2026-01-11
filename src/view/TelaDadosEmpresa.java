@@ -1,10 +1,10 @@
-public class TelaCadastroEmpresa extends JFrame {
+public class TelaDadosEmpresa extends JFrame {
 
     private SistemaEstacionamento sistema;
     private JTextField txtNome;
     private JTextField txtCnpj;
 
-    public TelaCadastroEmpresa(SistemaEstacionamento sistema) {
+    public TelaDadosEmpresa(SistemaEstacionamento sistema) {
         this.sistema = sistema;
 
         setTitle("Cadastro de Empresa");
