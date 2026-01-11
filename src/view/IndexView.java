@@ -1,9 +1,9 @@
 package view;
-
 import javax.swing.*;
 import java.awt.*;
 import ui.ButtonPdr;
 import viewListeners.ListenerBtnEmpresa;
+import ui.Gradient;
 
 public class IndexView extends JFrame{
     public IndexView(){
@@ -16,7 +16,7 @@ public class IndexView extends JFrame{
 
         setLocationRelativeTo(null); //centralizar
 
-        JPanel painel = new JPanel();
+        JPanel painel = new JPanel(); 
 
         //gradiente background
         Gradient painel2 = new Gradient(

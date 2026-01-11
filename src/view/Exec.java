@@ -1,7 +1,5 @@
 package view;
-
 import javax.swing.SwingUtilities;
-
 import ui.ButtonPdr;
 
 public class Exec {
