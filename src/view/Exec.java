@@ -2,6 +2,8 @@ package view;
 
 import javax.swing.SwingUtilities;
 
+import ui.ButtonPdr;
+
 public class Exec {
     public static void main(String[] args) {
 
@@ -9,5 +11,6 @@ public class Exec {
             IndexView index = new IndexView();
             index.setVisible(true);
         });
+
     }
 }

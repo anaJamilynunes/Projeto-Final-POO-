@@ -1,4 +1,4 @@
-package src.TO;
+package TO;
 
 public class VagaTO {
     //estado das vagas
