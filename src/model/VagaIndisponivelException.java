@@ -1,3 +1,4 @@
+package model;
 public class VagaIndisponivelException extends Exception {
 
     public VagaIndisponivelException() {

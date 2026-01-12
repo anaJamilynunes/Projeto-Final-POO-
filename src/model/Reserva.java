@@ -1,4 +1,6 @@
-public class Reserva implements GerenciarR{
+package model;
+import java.io.Serializable;
+public class Reserva implements GerenciarR, Serializable{
     Cliente cliente;
     Empresa empresa;
     Vaga vaga;

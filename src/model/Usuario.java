@@ -1,4 +1,6 @@
-public abstract class Usuario{
+package model;
+import java.io.Serializable;
+public abstract class Usuario implements Serializable{
     private String nome;
     private int id;
     

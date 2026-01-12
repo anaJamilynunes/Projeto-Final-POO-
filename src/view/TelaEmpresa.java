@@ -1,3 +1,11 @@
+package view;
+import javax.swing.*;
+import java.awt.BorderLayout;
+
+import model.SistemaEstacionamento;
+import model.Vaga;
+import model.Empresa;
+import model.ArquivoUtil;
 public class TelaEmpresa extends JFrame {
 
     private Empresa empresa;
@@ -38,7 +46,7 @@ public class TelaEmpresa extends JFrame {
 
         try {
             int n = Integer.parseInt(numero);
-            empresa.adicionarVaga(new Vaga(n));
+            empresa.adicionarVaga(new Vaga(n, empresa));
             ArquivoUtil.salvarSistema(sistema);
             atualizarLista();
         } catch (NumberFormatException e) {

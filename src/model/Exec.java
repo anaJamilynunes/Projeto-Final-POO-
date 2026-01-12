@@ -1,3 +1,4 @@
+package model;
 public class Exec {
     public static void main(String[] args) {
 
@@ -9,7 +10,7 @@ public class Exec {
         Empresa e1 = new Empresa();
         e1.setNome("Shopping Center");
 
-        Vaga v1 = new Vaga(1);
+        Vaga v1 = new Vaga(1, e1);
         e1.adicionarVaga(v1);
 
         sistema.cadastrarUsuario(c1);

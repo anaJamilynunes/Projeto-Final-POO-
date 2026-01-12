@@ -1,11 +1,14 @@
-public class Vaga{
+package model;
+import java.io.Serializable;
+public class Vaga implements Serializable{
     int numero;
     boolean ocupada;
     private Empresa empresa;
 
-    public Vaga(int numero){
+    public Vaga(int numero, Empresa empresa){
         this.numero = numero;
         this.ocupada = false;
+        this.empresa = empresa;
     }
 
     public boolean vagaDisponivel(){
@@ -33,4 +36,8 @@ public class Vaga{
     public Empresa getEmpresa() {
         return empresa;
     }
+    public void setEmpresa(Empresa empresa) {
+    this.empresa = empresa;
+}
+
 }
