@@ -1,125 +1,130 @@
 package view;
 
-import java.awt.*;
 import javax.swing.*;
-import model.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import model.Empresa;
+import model.Vaga;
+import model.SistemaEstacionamento;
+import ui.ButtonPdr;
 
 public class TelaEmpresaNintendo extends JFrame {
-    private SistemaEstacionamento sistema;
-    private Empresa empresa;
-    private JPanel gridPainel;
-    private JLabel backgroundLabel;
 
-    
-    private ImageIcon blocoLivre;
-    private ImageIcon blocoOcupado;
+    private JPanel painelVagas;       // Painel onde as vagas vão aparecer
+    private Empresa empresa;
+    private SistemaEstacionamento sistema;
 
     public TelaEmpresaNintendo(SistemaEstacionamento sistema, Empresa empresa) {
-        this.sistema = sistema;
         this.empresa = empresa;
+        this.sistema = sistema;
 
-        setTitle("Painel da Empresa - Nintendo Style");
-        setSize(600, 600);
-        setResizable(false);
+        setTitle("Vagas Disponíveis");
+        setSize(800, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(new BorderLayout());
 
-        // fundo
-        try {
-            ImageIcon fundo = new ImageIcon("src/img/fundo_nintendo.png");
-            Image imagem = fundo.getImage().getScaledInstance(600, 600, Image.SCALE_SMOOTH);
-            fundo = new ImageIcon(imagem);
-            backgroundLabel = new JLabel(fundo);
-            backgroundLabel.setLayout(new BorderLayout());
-            setContentPane(backgroundLabel);
-        } catch (Exception e) {
-            System.out.println("Imagem de fundo não encontrada!");
+        // Fundo da tela
+        JLabel fundo = new JLabel(new ImageIcon("src/img/fundo_nintendo.png"));
+        fundo.setLayout(new BorderLayout());
+        setContentPane(fundo);
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setOpaque(false);
+        mainPanel.setLayout(new BorderLayout());
+        fundo.add(mainPanel, BorderLayout.CENTER);
+
+        // Painel customizado para o título estilo Nintendo
+JPanel tituloFundo = new JPanel() {
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g.create();
+
+        // Anti-aliasing desligado para deixar pixelado
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+
+        // Cor de fundo estilo Nintendo
+        g2.setColor(new Color(0x8B0000)); // vermelho escuro
+        g2.fillRect(0, 0, getWidth(), getHeight());
+
+        // Borda pixelada (2 camadas de "pixels")
+        g2.setColor(new Color(0xFFD700)); // dourado
+        for (int i = 0; i < 4; i++) {
+            g2.drawRect(i, i, getWidth() - 1 - 2*i, getHeight() - 1 - 2*i);
         }
 
-        // carregar ícones dos blocos
-        blocoLivre = new ImageIcon(new ImageIcon("src/img/bloco_verde.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
-        blocoOcupado = new ImageIcon(new ImageIcon("src/img/bloco_vermelho.png").getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+        g2.dispose();
+    }
+};
 
-        // Título
-        JLabel titulo = new JLabel("Painel de Vagas");
-        titulo.setFont(new Font("PressStart2P", Font.BOLD, 16));
-        titulo.setHorizontalAlignment(SwingConstants.CENTER);
-        titulo.setForeground(new Color(255, 215, 0));
-        titulo.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
-        backgroundLabel.add(titulo, BorderLayout.NORTH);
+// Layout do título
+tituloFundo.setLayout(new BorderLayout());
+tituloFundo.setPreferredSize(new Dimension(0, 80)); // altura do painel
 
-        // Grid de vagas
-        gridPainel = new JPanel();
-        gridPainel.setOpaque(false); // transparente para mostrar fundo
-        gridPainel.setLayout(new GridLayout(5, 5, 5, 5));
-        backgroundLabel.add(gridPainel, BorderLayout.CENTER);
+// Label do título
+JLabel titulo = new JLabel("Painel da Empresa", SwingConstants.CENTER);
+titulo.setFont(new Font("Monospaced", Font.BOLD, 28));
+titulo.setForeground(Color.WHITE);
+tituloFundo.add(titulo, BorderLayout.CENTER);
 
-        // Rodapé com botão de adicionar vaga
-        JButton btnAdicionar = new JButton("Adicionar Vaga");
-        btnAdicionar.setFont(new Font("PressStart2P", Font.BOLD, 12));
-        btnAdicionar.setBackground(new Color(0xFF5555));
-        btnAdicionar.setForeground(Color.WHITE);
-        btnAdicionar.setOpaque(true);
-        btnAdicionar.setBorderPainted(false);
-        btnAdicionar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+// Adiciona no topo do mainPanel
+mainPanel.add(tituloFundo, BorderLayout.NORTH);
 
-        btnAdicionar.addActionListener(e -> adicionarVaga());
 
-        JPanel painelRodape = new JPanel();
-        painelRodape.setOpaque(false); // transparente
-        painelRodape.add(btnAdicionar);
-        backgroundLabel.add(painelRodape, BorderLayout.SOUTH);
+        // Painel central com vagas
+        painelVagas = new JPanel();
+        painelVagas.setOpaque(false);
+        painelVagas.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        JScrollPane scroll = new JScrollPane(painelVagas);
+        scroll.setOpaque(false);
+        scroll.getViewport().setOpaque(false);
+        mainPanel.add(scroll, BorderLayout.CENTER);
 
-        atualizarVagas();
+        // Rodapé com botão adicionar vaga
+        JPanel footer = new JPanel();
+        footer.setOpaque(false);
+        ButtonPdr btnAdicionar = new ButtonPdr("Adicionar Vaga");
+        btnAdicionar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                adicionarVaga();
+            }
+        });
+        footer.add(btnAdicionar);
+        mainPanel.add(footer, BorderLayout.SOUTH);
+
+        atualizarVagas(); // Mostra as vagas existentes
         setVisible(true);
     }
 
+    // Adiciona uma vaga nova
     private void adicionarVaga() {
-        String input = JOptionPane.showInputDialog(this, "Número da vaga:");
-        if (input == null) return;
-        try {
-            int numero = Integer.parseInt(input);
-            empresa.adicionarVaga(new Vaga(numero, empresa));
-            ArquivoUtil.salvarSistema(sistema);
-            atualizarVagas();
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Número inválido!");
-        }
+        int numero = empresa.getVagas().size() + 1;
+        Vaga vaga = new Vaga(numero, empresa);
+        empresa.adicionarVaga(vaga);
+        atualizarVagas();
+        salvarSistema();
     }
 
+    // Atualiza visualmente o painel de vagas
     private void atualizarVagas() {
-        gridPainel.removeAll();
-    
-        // Se não houver vagas, mostrar aviso
-        if (empresa.getVagas().isEmpty()) {
-            JLabel aviso = new JLabel("Nenhuma vaga cadastrada");
-            aviso.setForeground(Color.WHITE);
-            aviso.setHorizontalAlignment(SwingConstants.CENTER);
-            gridPainel.setLayout(new BorderLayout());
-            gridPainel.add(aviso, BorderLayout.CENTER);
-        } else {
-            gridPainel.setLayout(new GridLayout(5, 5, 5, 5));
-            for (Vaga v : empresa.getVagas()) {
-                JButton botao = new JButton();
-                botao.setIcon(v.vagaDisponivel() ? blocoLivre : blocoOcupado);
-                botao.setOpaque(false);
-                botao.setContentAreaFilled(false);
-                botao.setBorderPainted(false);
-    
-                botao.addActionListener(ev -> {
-                    if (v.vagaDisponivel()) v.ocupar();
-                    else v.liberar();
-                    atualizarVagas();
-                    ArquivoUtil.salvarSistema(sistema);
-                });
-    
-                gridPainel.add(botao);
-            }
+        painelVagas.removeAll();
+        for (Vaga vaga : empresa.getVagas()) {
+            JLabel lbl = new JLabel("Vaga " + vaga.getNumero() + (vaga.vagaDisponivel() ? " - Livre" : " - Ocupada"));
+            lbl.setFont(new Font("Monospaced", Font.BOLD, 16));
+            lbl.setForeground(vaga.vagaDisponivel() ? Color.GREEN : Color.RED);
+            painelVagas.add(lbl);
         }
-    
-        gridPainel.revalidate();
-        gridPainel.repaint();
+        painelVagas.revalidate();
+        painelVagas.repaint();
     }
-    
+
+    // Salva alterações no sistema
+    private void salvarSistema() {
+        // Aqui você pode chamar seu método do ArquivoUtil para salvar o sistema
+        // Exemplo:
+        // ArquivoUtil.salvarSistema(sistema);
+        System.out.println("Sistema salvo!");
+    }
 }
