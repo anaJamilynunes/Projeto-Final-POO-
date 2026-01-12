@@ -16,7 +16,8 @@ public class IndexView extends JFrame{
 
         setLocationRelativeTo(null); //centralizar
 
-        JPanel painel = new JPanel(); 
+        JPanel painel = new JPanel();
+ 
 
         //gradiente background
         Gradient painel2 = new Gradient(
@@ -31,9 +32,6 @@ public class IndexView extends JFrame{
         //img
 
         ImageIcon img = new ImageIcon("src/img/EPsemBG.png");
-        //img.setBorder(BorderFactory.createEmptyBorder(30, 0, 20, 0)); 
-        //img.setHorizontalAlignment(JLabel.CENTER);*/
-        //JLabel labelImagem = new JLabel(img);
         Image imagem = img.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
         ImageIcon imgRedimensionada = new ImageIcon(imagem);
 
@@ -44,9 +42,7 @@ public class IndexView extends JFrame{
         labelImagem.setBorder(BorderFactory.createEmptyBorder(60, 0, 20, 0));
        
         // logo pequena
-    
-        
-        
+  
         //botoess
         ButtonPdr botao = new ButtonPdr("Empresa");
         botao.addActionListener(new ListenerBtnEmpresa(this));
