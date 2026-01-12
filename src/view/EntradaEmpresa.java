@@ -2,8 +2,12 @@ package view;
 import java.awt.*; 
 
 import javax.swing.*; 
-import org.w3c.dom.events.MouseEvent; 
 
+import model.ArquivoUtil;
+import model.SistemaEstacionamento;
+import model.Empresa;
+import view.TelaDadosEmpresa;
+import view.TelaEmpresa;
 import ui.EPLabel; 
 import ui.TextField; 
 import ui.ButtonPdr; 
@@ -82,16 +86,31 @@ public class EntradaEmpresa extends JFrame {
             public void mouseExited(java.awt.event.MouseEvent e) { 
                 labelCriarLogin.setForeground(normal); 
             } @Override 
-            public void mouseClicked(java.awt.event.MouseEvent e) { 
-                EntradaEmpresa tela = new EntradaEmpresa(); 
-                tela.setVisible(true); 
-                dispose(); 
-            } 
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+            SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
+            new TelaDadosEmpresa(sistema);
+            dispose();
+}
         }); 
         
         painel.add(Box.createVerticalStrut(10)); 
-        ButtonPdr entrar = new ButtonPdr("Entrar"); 
-        entrar.setAlignmentX(Component.CENTER_ALIGNMENT); 
-        
-        painel.add(entrar); } 
+        ButtonPdr entrar = new ButtonPdr("Entrar");
+entrar.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+entrar.addActionListener(e -> {
+    SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
+    Empresa empresa = sistema.buscarEmpresaPorCnpj(tfCnpj.getText());
+
+    if (empresa != null) {
+        new TelaEmpresa(sistema, empresa);
+        dispose();
+    } else {
+        JOptionPane.showMessageDialog(this, "Empresa não encontrada.");
+    }
+});
+
+painel.add(entrar);
+
+
+    } 
     }

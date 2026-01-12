@@ -78,5 +78,16 @@ public class SistemaEstacionamento implements Serializable{
         return buscarVagasDisponiveis().size();
     }
 
+    public Empresa buscarEmpresaPorCnpj(String cnpj) {
+        for (Empresa e : empresas) {
+            if (e.getCnpj() != null && e.getCnpj().equals(cnpj)) {
+                return e;
+            }
+        }
+        return null;
+    }
+    
+    
+
 
 }
