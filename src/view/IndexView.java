@@ -30,7 +30,7 @@ public class IndexView extends JFrame{
 
         //img
 
-        ImageIcon img = new ImageIcon("src/img/logoeasyparking.png");
+        ImageIcon img = new ImageIcon("src/img/EPsemBG.png");
         //img.setBorder(BorderFactory.createEmptyBorder(30, 0, 20, 0)); 
         //img.setHorizontalAlignment(JLabel.CENTER);*/
         //JLabel labelImagem = new JLabel(img);
