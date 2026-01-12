@@ -7,9 +7,9 @@ import java.awt.event.MouseEvent;
 
 public class ButtonPdr extends JButton {
 
-    private Color normal = new Color(0x7A1022);   // vinho
-    private Color hover  = new Color(0xA3182D);   // vinho claro
-    private Color text   = new Color(0xFDD278);   // dourado
+    private Color normal = new Color(107, 74, 53);   // marrom
+    private Color hover  = new Color(169,113,66);   // marrom  claro
+    private Color text   = new Color(253,210,120);   // creme suave
 
     public ButtonPdr(String texto) {
         super(texto);

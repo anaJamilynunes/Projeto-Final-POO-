@@ -6,8 +6,6 @@ import javax.swing.*;
 import model.ArquivoUtil;
 import model.SistemaEstacionamento;
 import model.Empresa;
-import view.TelaDadosEmpresa;
-import view.TelaEmpresa;
 import ui.EPLabel; 
 import ui.TextField; 
 import ui.ButtonPdr; 
@@ -17,8 +15,8 @@ public class EntradaEmpresa extends JFrame {
      //gradiente background 
      Gradient painel2 = new Gradient( 
         //new Color(0xFD, 0xD2, 0x78),
-         new Color(0xFF, 0xE5, 0xA5), 
-         new Color(0xFF, 0xE5, 0xA5) 
+         new Color(138, 111, 90), 
+         new Color(138, 111, 90) 
         ); 
         setContentPane(painel2); 
         painel2.setLayout(new GridBagLayout()); // centralizar 
@@ -102,7 +100,7 @@ entrar.addActionListener(e -> {
     Empresa empresa = sistema.buscarEmpresaPorCnpj(tfCnpj.getText());
 
     if (empresa != null) {
-        new TelaEmpresa(sistema, empresa);
+        new TelaEmpresaNintendo(sistema, empresa);
         dispose();
     } else {
         JOptionPane.showMessageDialog(this, "Empresa não encontrada.");

@@ -21,8 +21,8 @@ public class IndexView extends JFrame{
         //gradiente background
         Gradient painel2 = new Gradient(
             //new Color(0xFD, 0xD2, 0x78),  
-            new Color(0xFF, 0xE5, 0xA5),
-            new Color(0xFF, 0xE5, 0xA5)  
+            new Color(138, 111, 90),
+            new Color(138, 111, 90)  
         );
 
         setContentPane(painel2);
@@ -30,7 +30,7 @@ public class IndexView extends JFrame{
 
         //img
 
-        ImageIcon img = new ImageIcon("src/img/logoEP.png");
+        ImageIcon img = new ImageIcon("src/img/logoeasyparking.png");
         //img.setBorder(BorderFactory.createEmptyBorder(30, 0, 20, 0)); 
         //img.setHorizontalAlignment(JLabel.CENTER);*/
         //JLabel labelImagem = new JLabel(img);
@@ -42,7 +42,11 @@ public class IndexView extends JFrame{
         painel.add(labelImagem);
         painel.add(Box.createRigidArea(new Dimension(0, 100)));
         labelImagem.setBorder(BorderFactory.createEmptyBorder(60, 0, 20, 0));
-
+       
+        // logo pequena
+    
+        
+        
         //botoess
         ButtonPdr botao = new ButtonPdr("Empresa");
         botao.addActionListener(new ListenerBtnEmpresa(this));
