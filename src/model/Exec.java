@@ -4,8 +4,13 @@ public class Exec {
 
         SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
 
-        Cliente c1 = new Cliente();
-        c1.setNome("João");
+        Cliente c1 = new Cliente(
+                "João",
+                "123.456.789-00",
+                "ABC-1234",
+                "Carro"
+        );
+
 
         Empresa e1 = new Empresa();
         e1.setNome("Shopping Center");
