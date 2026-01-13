@@ -66,6 +66,8 @@ public class TelaEmpresaNintendo extends JFrame {
         ButtonPdr btnAdicionar = new ButtonPdr("Adicionar Vaga");
         btnAdicionar.addActionListener(e -> adicionarVaga());
 
+        //ButtonPdr btnEditarEmpresa = new ButtonPdr("Editar Dados Empresa");
+        //btnEditarEmpresa.addActionListener(e -> editarEmpresa());
         ButtonPdr btnEditarEmpresa = new ButtonPdr("Editar Dados Empresa");
         btnEditarEmpresa.addActionListener(e -> editarEmpresa());
 
@@ -107,10 +109,11 @@ public class TelaEmpresaNintendo extends JFrame {
                 " | Horário: 08:00 - 18:00 | Dia: Segunda à Sexta");
     }
 
-    private void editarEmpresa() {
-        JOptionPane.showMessageDialog(this, "Função de editar dados da empresa ainda não implementada!");
+   private void editarEmpresa() {
+        //JOptionPane.showMessageDialog(this, "Função de editar dados da empresa ainda não implementada!");
+        new EditarEmpresa(sistema, empresa);
+        dispose();
     }
-
     private void gerarRelatorio() {
         StringBuilder sb = new StringBuilder();
         sb.append("Relatório da Empresa:\n\n");
