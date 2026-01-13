@@ -8,10 +8,10 @@ import java.awt.event.MouseEvent;
 public class ButtonPdr extends JButton {
 
     private Color normal = new Color(107, 74, 53);   // marrom
-    private Color hover  = new Color(169,113,66);   // marrom  claro
+    private Color hover  = new Color(138, 111, 90);   // marrom  claro
     private Color text   = new Color(253,210,120);   // creme suave
-    private Color corBorda = Color.WHITE; 
-
+    //private Color corBorda = Color.WHITE; 
+    
     public ButtonPdr(String texto) {
         super(texto);
 
@@ -52,7 +52,7 @@ public class ButtonPdr extends JButton {
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30);
 
-        g2.setColor(corBorda);
+        //g2.setColor(corBorda);
         g2.setStroke(new BasicStroke(3));
         g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 30, 30);
 
