@@ -10,7 +10,10 @@ import viewListeners.ListenerBtnEmpresa;
 import ui.Gradient;
 
 public class IndexView extends JFrame{
-    public IndexView(){
+    private SistemaEstacionamento sistema;
+    public IndexView(SistemaEstacionamento sistema){
+        this.sistema = sistema;
+
         setTitle("Home");
         setVisible(true);
         setSize( 800, 500);
@@ -49,7 +52,7 @@ public class IndexView extends JFrame{
   
         //botoess
         ButtonPdr botao = new ButtonPdr("Empresa");
-        botao.addActionListener(new ListenerBtnEmpresa(this));
+        botao.addActionListener(new ListenerBtnEmpresa(this, sistema));
         botao.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         ButtonPdr botao2 = new ButtonPdr("Cliente");
@@ -57,7 +60,7 @@ public class IndexView extends JFrame{
         botao2.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         botao2.addActionListener(e -> {
-            SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
+            //SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
             new TelaReservarVaga(sistema);
             dispose();
         });

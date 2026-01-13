@@ -4,11 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import model.SistemaEstacionamento;
 import model.Empresa;
 import model.Vaga;
-
 import ui.ButtonPdr;
 import ui.EPLabel;
 import ui.Gradient;
@@ -79,7 +77,7 @@ public class TelaReservarVaga extends JFrame {
         btnCancelar.addActionListener(e -> cancelarReserva());
 
         btnVoltar.addActionListener(e -> {
-            new IndexView().setVisible(true);
+            new IndexView(sistema).setVisible(true);
             dispose();
         });
 

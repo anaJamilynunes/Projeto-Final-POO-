@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
-import model.ArquivoUtil;
+//import model.ArquivoUtil;
 import model.SistemaEstacionamento;
 import model.Empresa;
 import view.*;
@@ -16,9 +16,12 @@ import ui.ButtonPdr;
 import ui.Gradient; 
 
 public class EntradaEmpresa extends JFrame {
-     public EntradaEmpresa() { //tela de login - entrada cnpj e senha - entrada pra p/n login 
-     //gradiente background 
-     Gradient painel2 = new Gradient( 
+    private SistemaEstacionamento sistema;
+    public EntradaEmpresa(SistemaEstacionamento sistema) { //tela de login - entrada cnpj e senha - entrada pra p/n login 
+    this.sistema = sistema;
+    
+        //gradiente background 
+    Gradient painel2 = new Gradient( 
         //new Color(0xFD, 0xD2, 0x78),
             new Color(253,210,120),
             new Color(169,113,66) 
@@ -52,8 +55,8 @@ public class EntradaEmpresa extends JFrame {
         btnVoltar.addMouseListener(new java.awt.event.MouseAdapter() { 
              @Override 
             public void mouseClicked(java.awt.event.MouseEvent e) {
-            SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
-            new IndexView();
+            //SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
+            new IndexView(sistema);
             dispose();
             }
         }); 
@@ -124,7 +127,7 @@ public class EntradaEmpresa extends JFrame {
                 labelCriarLogin.setForeground(normal); 
             } @Override 
             public void mouseClicked(java.awt.event.MouseEvent e) {
-            SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
+            //SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
             new TelaDadosEmpresa(sistema);
             dispose();
             }
@@ -153,7 +156,8 @@ public class EntradaEmpresa extends JFrame {
         return;
     }
 
-    SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
+    //SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
+    
     Empresa empresa = sistema.buscarEmpresaPorCnpj(cnpj);
 
     if (empresa == null) {

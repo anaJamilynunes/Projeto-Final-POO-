@@ -53,8 +53,8 @@ public class TelaDadosEmpresa extends JFrame {
             btnVoltar.addMouseListener(new java.awt.event.MouseAdapter() { 
              @Override 
             public void mouseClicked(java.awt.event.MouseEvent e) {
-            SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
-            new EntradaEmpresa();
+            //SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
+            new EntradaEmpresa(sistema);
             dispose();
             }
         }); 
@@ -121,24 +121,6 @@ public class TelaDadosEmpresa extends JFrame {
 
         setVisible(true);
     }
-/* 
-    private void cadastrar() {
-        if (txtNome.getText().isEmpty() || txtCnpj.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Preencha todos os campos.");
-            return;
-        }
-    
-        Empresa empresa = new Empresa();
-        empresa.setNome(txtNome.getText());
-        empresa.setCnpj(txtCnpj.getText());
-
-        sistema.cadastrarUsuario(empresa);
-        ArquivoUtil.salvarSistema(sistema);
-
-        JOptionPane.showMessageDialog(this, "Empresa cadastrada com sucesso!");
-        new TelaEmpresa(sistema, empresa);
-        dispose();
-        }*/
 
         private void cadastrar() {
         String nome = txtNome.getText().trim();

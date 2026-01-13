@@ -56,8 +56,8 @@ public class EditarEmpresa extends JFrame {
             btnVoltar.addMouseListener(new java.awt.event.MouseAdapter() { 
              @Override 
             public void mouseClicked(java.awt.event.MouseEvent e) {
-            SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
-            new EntradaEmpresa();
+            //SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
+            new EntradaEmpresa(sistema);
             dispose();
             }
         }); 
@@ -150,9 +150,9 @@ public class EditarEmpresa extends JFrame {
     ArquivoUtil.salvarSistema(sistema);
 
     JOptionPane.showMessageDialog(this, "Dados atualizados com sucesso!");
-    new TelaEmpresaNintendo(sistema, empresa);
-    dispose();
-}
+        new TelaEmpresaNintendo(sistema, empresa);
+        dispose();
+    }
 
     private void deletar() {
         int resp = JOptionPane.showConfirmDialog(
@@ -162,12 +162,18 @@ public class EditarEmpresa extends JFrame {
             JOptionPane.YES_NO_OPTION
         );
 
+        if (sistema.empresaTemReservaAtiva(empresa.getCnpj())) {
+            JOptionPane.showMessageDialog(this,
+                "Não é possível excluir.\nExistem vagas ocupadas ou reservas ativas.");
+            return;
+        }
+
         if (resp == JOptionPane.YES_OPTION) {
             sistema.removerEmpresa(empresa.getCnpj());
             ArquivoUtil.salvarSistema(sistema);
 
             JOptionPane.showMessageDialog(this, "Empresa removida!");
-            new EntradaEmpresa();
+            new EntradaEmpresa(sistema);
             dispose();
         }
     }
