@@ -83,7 +83,7 @@ public class EntradaEmpresa extends JFrame {
         painel.add(labelCNPJ); 
 
         TextField tfCnpj = new TextField();  
-        painel.add(tfCnpj);
+        painel.add(tfCnpj); 
 
         painel.add(Box.createVerticalStrut(20)); 
         EPLabel labelSenha = new EPLabel("Palavra-Passe"); 

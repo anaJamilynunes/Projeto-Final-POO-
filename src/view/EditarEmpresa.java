@@ -57,7 +57,7 @@ public class EditarEmpresa extends JFrame {
              @Override 
             public void mouseClicked(java.awt.event.MouseEvent e) {
             //SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
-            new EntradaEmpresa(sistema);
+            new TelaEmpresaNintendo(sistema, null);
             dispose();
             }
         }); 
@@ -117,12 +117,23 @@ public class EditarEmpresa extends JFrame {
         painel.add(Box.createVerticalStrut(15));
 
         ButtonPdr btnCadastrar = new ButtonPdr("Editar");
-        btnCadastrar.setAlignmentX(Component.LEFT_ALIGNMENT);
+        //btnCadastrar.setAlignmentX(Component.LEFT_ALIGNMENT);
         painel.add(btnCadastrar);
 
         ButtonPdr btnDeletar = new ButtonPdr("Deletar Empresa");
-        btnDeletar.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        //btnDeletar.setAlignmentX(Component.RIGHT_ALIGNMENT);
         painel.add(btnDeletar);
+        JPanel painelBotoes = new JPanel(new GridLayout(1, 2, 10, 0));
+        painelBotoes.setOpaque(false);
+
+        btnCadastrar.setPreferredSize(new Dimension(200, 40));
+        btnDeletar.setPreferredSize(new Dimension(200, 40));
+
+        painelBotoes.add(btnCadastrar);
+        painelBotoes.add(btnDeletar);
+
+        painel.add(painelBotoes);
+
 
         btnCadastrar.addActionListener(e -> editar());
         btnDeletar.addActionListener(e -> deletar());

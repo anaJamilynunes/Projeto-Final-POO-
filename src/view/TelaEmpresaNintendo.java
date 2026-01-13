@@ -25,6 +25,7 @@ public class TelaEmpresaNintendo extends JFrame {
         setTitle("Painel da Empresa");
         setSize(900, 600);
         setLocationRelativeTo(null);
+        setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         // Painel principal

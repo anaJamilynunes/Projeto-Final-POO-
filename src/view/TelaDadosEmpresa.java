@@ -76,7 +76,9 @@ public class TelaDadosEmpresa extends JFrame {
         labelNome.setAlignmentX(Component.CENTER_ALIGNMENT);
         painel.add(labelNome);
 
-        txtNome = new TextField();
+        // txtNome = new TextField();
+        // painel.add(txtNome);
+        TextField txtNome = new TextField(); 
         painel.add(txtNome);
 
         painel.add(Box.createVerticalStrut(15));
