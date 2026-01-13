@@ -1,4 +1,5 @@
 package model;
+
 import java.io.Serializable;
 public class Reserva implements GerenciarR, Serializable{
     Cliente cliente;
