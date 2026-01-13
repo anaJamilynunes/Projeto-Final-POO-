@@ -14,3 +14,15 @@ public class TextField extends JTextField{
         setPreferredSize(new Dimension(280, 40));
     }
 }
+
+//  TextField tfCnpj = new TextField();  
+//         painel.add(tfCnpj);
+
+        painel.add(Box.createVerticalStrut(20)); 
+        EPLabel labelSenha = new EPLabel("Palavra-Passe"); 
+        labelSenha.setAlignmentX(Component.CENTER_ALIGNMENT); 
+        painel.add(labelSenha); 
+        //parte que omite a senha
+        JPasswordField tfSenha = new JPasswordField(8);
+        
+        tfSenha.setHorizontalAlignment(JTextField.CENTER);
