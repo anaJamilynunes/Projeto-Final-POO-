@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class Empresa extends Usuario{
     private String cnpj;
+    private String senha;
     private ArrayList<Vaga> vagas = new ArrayList<>();
 
 //Quem oferece disponibilidade de vagas de estacionamento
@@ -37,11 +38,19 @@ public class Empresa extends Usuario{
     }
     public String getCnpj() {
     return cnpj;
-}
+    }
 
-public void setCnpj(String cnpj) {
-    this.cnpj = cnpj;
-}
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
 
 }

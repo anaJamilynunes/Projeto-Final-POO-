@@ -7,9 +7,8 @@ import ui.Gradient;
 
 public class IndexView extends JFrame{
     public IndexView(){
-        //JFrame jFrame = new JFrame("Home");
         setTitle("Home");
-        //setVisible(true);
+        setVisible(true);
         setSize( 800, 500);
         setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -21,9 +20,10 @@ public class IndexView extends JFrame{
 
         //gradiente background
         Gradient painel2 = new Gradient(
-            //new Color(0xFD, 0xD2, 0x78),  
-            new Color(138, 111, 90),
-            new Color(138, 111, 90)  
+            //new Color(0xFD, 0xD2, 0x78), 
+            //(138, 111, 90) 
+            new Color(253,210,120),
+            new Color(169,113,66) 
         );
 
         setContentPane(painel2);

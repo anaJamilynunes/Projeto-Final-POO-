@@ -86,8 +86,21 @@ public class SistemaEstacionamento implements Serializable{
         }
         return null;
     }
-    
-    
+    //a diferença é que busca vaga ativa por empresa especifica
+    public boolean empresaTemReservaAtiva(String cnpjEmpresa) {
+    for (Reserva r : reservas) {
+        if (r.getEmpresa().getCnpj().equals(cnpjEmpresa) &&
+            r.estadoReserva()) {
+            return true;
+        }
+    }
+    return false;
+}
 
 
+    public void removerEmpresa(String cnpj) {
+        usuarios.removeIf(u -> u instanceof Empresa && ((Empresa) u).getCnpj().equals(cnpj));
+    }
+
+    
 }

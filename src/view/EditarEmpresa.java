@@ -13,14 +13,16 @@ import model.SistemaEstacionamento;
 import model.Empresa;
 import model.ArquivoUtil;
 
-public class TelaDadosEmpresa extends JFrame {
+public class EditarEmpresa extends JFrame {
 
     private SistemaEstacionamento sistema;
+    private Empresa empresa;
     private TextField txtNome;
     private TextField txtCnpj;
     private JPasswordField txtSenha;
 
-    public TelaDadosEmpresa(SistemaEstacionamento sistema) {
+    public EditarEmpresa(SistemaEstacionamento sistema, Empresa empresa) {
+        this.empresa = empresa;
         this.sistema = sistema;
 
         Gradient painel2 = new Gradient(
@@ -31,7 +33,8 @@ public class TelaDadosEmpresa extends JFrame {
         setContentPane(painel2);
         painel2.setLayout(new GridBagLayout());
 
-        setTitle("Cadastro de Empresa");
+        setTitle("Dados da Empresa");
+        setVisible(true);
         setSize(800, 500);
         setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -67,7 +70,7 @@ public class TelaDadosEmpresa extends JFrame {
         labelImagem.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         painel.add(labelImagem);
 
-        EPLabel titulo = EPLabel.titulo("Cadastro da Empresa");
+        EPLabel titulo = EPLabel.titulo("Editar dados da Empresa");
         titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
         painel.add(titulo);
 
@@ -113,71 +116,62 @@ public class TelaDadosEmpresa extends JFrame {
 
         painel.add(Box.createVerticalStrut(15));
 
-        ButtonPdr btnCadastrar = new ButtonPdr("Cadastrar");
-        btnCadastrar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        ButtonPdr btnCadastrar = new ButtonPdr("Editar");
+        btnCadastrar.setAlignmentX(Component.LEFT_ALIGNMENT);
         painel.add(btnCadastrar);
 
-        btnCadastrar.addActionListener(e -> cadastrar());
+        ButtonPdr btnDeletar = new ButtonPdr("Deletar Empresa");
+        btnDeletar.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        painel.add(btnDeletar);
+
+        btnCadastrar.addActionListener(e -> editar());
+        btnDeletar.addActionListener(e -> deletar());
 
         setVisible(true);
     }
-/* 
-    private void cadastrar() {
-        if (txtNome.getText().isEmpty() || txtCnpj.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Preencha todos os campos.");
-            return;
-        }
-    
-        Empresa empresa = new Empresa();
-        empresa.setNome(txtNome.getText());
-        empresa.setCnpj(txtCnpj.getText());
 
-        sistema.cadastrarUsuario(empresa);
-        ArquivoUtil.salvarSistema(sistema);
+    private void editar() {
+    String nome = txtNome.getText().trim();
+    String senha = new String(txtSenha.getPassword()).trim();
 
-        JOptionPane.showMessageDialog(this, "Empresa cadastrada com sucesso!");
-        new TelaEmpresa(sistema, empresa);
-        dispose();
-        }*/
-
-        private void cadastrar() {
-        String nome = txtNome.getText().trim();
-        String cnpj = txtCnpj.getText().trim();
-        //String senha = txtSenha.getText().trim();
-        String senha = new String(txtSenha.getPassword()).trim();
-
-        if (nome.isEmpty() || cnpj.isEmpty() || senha.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
-            return;
-        }
-
-        if (!cnpj.matches("\\d{14}")) {
-            JOptionPane.showMessageDialog(this, "CNPJ deve conter 14 números!");
-            return;
-        }
-
-        if (!senha.matches("\\d{8}")) {
-            JOptionPane.showMessageDialog(this, "Senha deve conter exatamente 8 números!");
-            return;
-        }
-
-        if (sistema.buscarEmpresaPorCnpj(cnpj) != null) {
-            JOptionPane.showMessageDialog(this, "Este CNPJ já está cadastrado!");
-            return;
-            }
-
-        Empresa empresa = new Empresa();
-        empresa.setNome(nome);
-        empresa.setCnpj(cnpj);
-        empresa.setSenha(senha);
-
-        sistema.cadastrarUsuario(empresa);
-        ArquivoUtil.salvarSistema(sistema);
-
-        JOptionPane.showMessageDialog(this, "Empresa cadastrada com sucesso!");
-        new TelaEmpresaNintendo(sistema, empresa);
-        dispose();
+    if (nome.isEmpty() || senha.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
+        return;
     }
 
+    if (!senha.matches("\\d{8}")) {
+        JOptionPane.showMessageDialog(this, "Senha deve conter exatamente 8 números!");
+        return;
+    }
+
+    empresa.setNome(nome);
+    empresa.setSenha(senha);
+
+    ArquivoUtil.salvarSistema(sistema);
+
+    JOptionPane.showMessageDialog(this, "Dados atualizados com sucesso!");
+    new TelaEmpresaNintendo(sistema, empresa);
+    dispose();
 }
 
+    private void deletar() {
+        int resp = JOptionPane.showConfirmDialog(
+            this,
+            "Tem certeza que deseja apagar esta empresa?\nTodos os dados serão perdidos!",
+            "Confirmação",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (resp == JOptionPane.YES_OPTION) {
+            sistema.removerEmpresa(empresa.getCnpj());
+            ArquivoUtil.salvarSistema(sistema);
+
+            JOptionPane.showMessageDialog(this, "Empresa removida!");
+            new EntradaEmpresa();
+            dispose();
+        }
+    }
+
+
+
+}

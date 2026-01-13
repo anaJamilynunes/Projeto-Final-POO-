@@ -105,7 +105,9 @@ public class TelaEmpresaNintendo extends JFrame {
     }
 
     private void editarEmpresa() {
-        JOptionPane.showMessageDialog(this, "Função de editar dados da empresa ainda não implementada!");
+        //JOptionPane.showMessageDialog(this, "Função de editar dados da empresa ainda não implementada!");
+        new EditarEmpresa(sistema, empresa);
+        dispose();
     }
 
     private void gerarRelatorio() {

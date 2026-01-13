@@ -2,7 +2,7 @@ package model;
 import java.io.Serializable;
 public class Reserva implements GerenciarR, Serializable{
     Cliente cliente;
-    Empresa empresa;
+    private Empresa empresa;
     Vaga vaga;
     boolean vagaAtiva;
 
@@ -29,6 +29,14 @@ public class Reserva implements GerenciarR, Serializable{
     @Override
     public boolean estadoReserva(){
         return vagaAtiva;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
     

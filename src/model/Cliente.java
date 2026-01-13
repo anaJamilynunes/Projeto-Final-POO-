@@ -40,7 +40,6 @@ public class Cliente extends Usuario {
         return reservas;
     }
 
-    // 🔹 GETTERS NOVOS
     public String getCpf() {
         return cpf;
     }
