@@ -87,8 +87,7 @@ public class TelaEmpresaNintendo extends JFrame {
 
     private void adicionarVaga() {
         int numero = empresa.getVagas().size() + 1;
-        Vaga vaga = new Vaga(numero, empresa);
-        empresa.adicionarVaga(vaga);
+        empresa.adicionarVaga();
         salvarSistema();
         atualizarTabela();
     }

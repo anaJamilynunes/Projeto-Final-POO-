@@ -14,16 +14,20 @@ public class Exec {
         Empresa e1 = new Empresa();
         e1.setNome("Shopping Center");
 
-        Vaga v1 = new Vaga(1, e1);
-        e1.adicionarVaga(v1);
-
+        
         sistema.cadastrarUsuario(c1);
         sistema.cadastrarUsuario(e1);
+        
+        e1.adicionarVaga();
+        e1.adicionarVaga();
 
-        try {
-            sistema.fazerReserva(c1, e1, v1);
+        Vaga vagaDisponivel = e1.getVagas().get(0);
+
+         try {
+            sistema.fazerReserva(c1, e1, vagaDisponivel);
+            System.out.println("Reserva realizada com sucesso!");
         } catch (VagaIndisponivelException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Erro ao reservar: " + e.getMessage());
         }
 
         ArquivoUtil.salvarSistema(sistema);

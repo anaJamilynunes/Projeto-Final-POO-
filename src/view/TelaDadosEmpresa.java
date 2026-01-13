@@ -10,7 +10,6 @@ import ui.TextField;
 import ui.ButtonPdr;
 import ui.Gradient;
 import model.SistemaEstacionamento;
-import model.Empresa;
 import model.ArquivoUtil;
 
 public class TelaDadosEmpresa extends JFrame {
