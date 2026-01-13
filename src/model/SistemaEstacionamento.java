@@ -10,8 +10,6 @@ public class SistemaEstacionamento implements Serializable{
 
     private Vaga vagaReservada;
 
-
-
     public void cadastrarUsuario(Usuario user){
         usuarios.add(user);
         //diferenciar cliente de empresa com o instanceof
@@ -107,6 +105,23 @@ public class SistemaEstacionamento implements Serializable{
             vagaReservada = null;
         }
     }
+
+ //a diferença é que busca vaga ativa por empresa especifica
+    public boolean empresaTemReservaAtiva(String cnpjEmpresa) {
+        for (Reserva r : reservas) {
+            if (r.getEmpresa().getCnpj().equals(cnpjEmpresa) &&
+                r.estadoReserva()) {
+                return true;
+            }
+        }
+        return false;
+        }
+
+
+    public boolean removerEmpresa(String cnpj) {
+        return empresas.removeIf(e -> e.getCnpj().equals(cnpj));
+    }
+
 
 
 
