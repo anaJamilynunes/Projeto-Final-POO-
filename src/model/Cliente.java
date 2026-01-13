@@ -11,7 +11,6 @@ public class Cliente extends Usuario {
 
     ArrayList<Reserva> reservas = new ArrayList<>();
 
-    // 🔹 NOVO CONSTRUTOR
     public Cliente(String nome, String cpf, String placa, String tipoVeiculo) {
         super(nome); // chama o construtor de Usuario
         this.cpf = cpf;
@@ -40,7 +39,7 @@ public class Cliente extends Usuario {
         return reservas;
     }
 
-    // 🔹 GETTERS NOVOS
+
     public String getCpf() {
         return cpf;
     }

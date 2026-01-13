@@ -1,4 +1,8 @@
 package view;
+import model.SistemaEstacionamento;
+import model.ArquivoUtil;
+import view.TelaReservarVaga;
+
 import javax.swing.*;
 import java.awt.*;
 import ui.ButtonPdr;
@@ -52,7 +56,12 @@ public class IndexView extends JFrame{
         botao2.setBounds(0, 0, 200, 30);
         botao2.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        //
+        botao2.addActionListener(e -> {
+            SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
+            new TelaReservarVaga(sistema);
+            dispose();
+        });
+
         painel.setOpaque(false); //painel ficar opaco
         painel.add(botao);
         painel.add(Box.createVerticalStrut(20));

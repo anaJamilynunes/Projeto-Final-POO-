@@ -1,5 +1,9 @@
 package view;
 
+import model.ArquivoUtil;
+import view.IndexView;
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -81,18 +85,26 @@ mainPanel.add(tituloFundo, BorderLayout.NORTH);
         scroll.getViewport().setOpaque(false);
         mainPanel.add(scroll, BorderLayout.CENTER);
 
-        // Rodapé com botão adicionar vaga
+        // Rodapé com botões
         JPanel footer = new JPanel();
         footer.setOpaque(false);
+
+// Botão adicionar vaga
         ButtonPdr btnAdicionar = new ButtonPdr("Adicionar Vaga");
-        btnAdicionar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                adicionarVaga();
-            }
-        });
+        btnAdicionar.addActionListener(e -> adicionarVaga());
         footer.add(btnAdicionar);
+
+//BOTÃO VOLTAR
+        ButtonPdr btnVoltar = new ButtonPdr("Voltar");
+        btnVoltar.addActionListener(e -> {
+            ArquivoUtil.salvarSistema(sistema);
+            new IndexView().setVisible(true);
+            dispose();
+        });
+        footer.add(btnVoltar);
+
         mainPanel.add(footer, BorderLayout.SOUTH);
+
 
         atualizarVagas(); // Mostra as vagas existentes
         setVisible(true);
@@ -122,9 +134,7 @@ mainPanel.add(tituloFundo, BorderLayout.NORTH);
 
     // Salva alterações no sistema
     private void salvarSistema() {
-        // Aqui você pode chamar seu método do ArquivoUtil para salvar o sistema
-        // Exemplo:
-        // ArquivoUtil.salvarSistema(sistema);
-        System.out.println("Sistema salvo!");
+        ArquivoUtil.salvarSistema(sistema);
     }
+
 }

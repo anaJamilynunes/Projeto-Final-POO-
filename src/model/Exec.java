@@ -11,7 +11,6 @@ public class Exec {
                 "Carro"
         );
 
-
         Empresa e1 = new Empresa();
         e1.setNome("Shopping Center");
 
@@ -21,7 +20,6 @@ public class Exec {
         sistema.cadastrarUsuario(c1);
         sistema.cadastrarUsuario(e1);
 
-        //noemi
         try {
             sistema.fazerReserva(c1, e1, v1);
         } catch (VagaIndisponivelException e) {
