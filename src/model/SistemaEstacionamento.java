@@ -118,9 +118,10 @@ public class SistemaEstacionamento implements Serializable{
         }
 
 
-    public void removerEmpresa(String cnpj) {
-        usuarios.removeIf(u -> u instanceof Empresa && ((Empresa) u).getCnpj().equals(cnpj));
+    public boolean removerEmpresa(String cnpj) {
+        return empresas.removeIf(e -> e.getCnpj().equals(cnpj));
     }
+
 
 
 
