@@ -12,7 +12,7 @@ import ui.EPLabel;
 import ui.Gradient;
 
 public class TelaReservarVaga extends JFrame {
-
+ 
     private SistemaEstacionamento sistema;
     private JList<Vaga> listaVagas;
     private DefaultListModel<Vaga> modelLista;
@@ -27,8 +27,8 @@ public class TelaReservarVaga extends JFrame {
         setLocationRelativeTo(null);
 
         Gradient fundo = new Gradient(
-                new Color(0xFF, 0xE5, 0xA5),
-                new Color(0xFF, 0xE5, 0xA5)
+            new Color(253,210,120),
+            new Color(169,113,66) 
         );
         setContentPane(fundo);
         fundo.setLayout(new GridBagLayout());
