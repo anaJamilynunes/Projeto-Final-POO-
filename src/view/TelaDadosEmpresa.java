@@ -3,7 +3,7 @@ package view;
 import java.awt.*;
 import javax.swing.*;
 
-import view.TelaEmpresa;
+import view.TelaEmpresaNintendo;
 
 
 import ui.EPLabel;
@@ -99,7 +99,7 @@ public class TelaDadosEmpresa extends JFrame {
         ArquivoUtil.salvarSistema(sistema);
 
         JOptionPane.showMessageDialog(this, "Empresa cadastrada com sucesso!");
-        new TelaEmpresa(sistema, empresa);
+        new TelaEmpresaNintendo(sistema, empresa);
         dispose();
         }
 }
