@@ -1,4 +1,8 @@
 package view;
+import model.SistemaEstacionamento;
+import model.ArquivoUtil;
+import view.TelaReservarVaga;
+
 import javax.swing.*;
 import java.awt.*;
 import ui.ButtonPdr;
@@ -7,9 +11,8 @@ import ui.Gradient;
 
 public class IndexView extends JFrame{
     public IndexView(){
-        //JFrame jFrame = new JFrame("Home");
         setTitle("Home");
-        //setVisible(true);
+        setVisible(true);
         setSize( 800, 500);
         setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -21,9 +24,10 @@ public class IndexView extends JFrame{
 
         //gradiente background
         Gradient painel2 = new Gradient(
-            //new Color(0xFD, 0xD2, 0x78),  
-            new Color(138, 111, 90),
-            new Color(138, 111, 90)  
+            //new Color(0xFD, 0xD2, 0x78), 
+            //(138, 111, 90) 
+            new Color(253,210,120),
+            new Color(169,113,66) 
         );
 
         setContentPane(painel2);
@@ -52,7 +56,12 @@ public class IndexView extends JFrame{
         botao2.setBounds(0, 0, 200, 30);
         botao2.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        //
+        botao2.addActionListener(e -> {
+            SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
+            new TelaReservarVaga(sistema);
+            dispose();
+        });
+
         painel.setOpaque(false); //painel ficar opaco
         painel.add(botao);
         painel.add(Box.createVerticalStrut(20));

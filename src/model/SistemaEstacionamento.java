@@ -7,7 +7,10 @@ public class SistemaEstacionamento implements Serializable{
     ArrayList<Empresa> empresas = new ArrayList<>();
     ArrayList<Cliente> clientes = new ArrayList<>();
     ArrayList<Reserva> reservas = new ArrayList<>();
-    
+
+    private Vaga vagaReservada;
+
+
 
     public void cadastrarUsuario(Usuario user){
         usuarios.add(user);
@@ -38,7 +41,7 @@ public class SistemaEstacionamento implements Serializable{
 
         return vagasDisponiveis;
     }
-//noemi
+
     public Reserva fazerReserva(Cliente c, Empresa e, Vaga v)
         throws VagaIndisponivelException {
 
@@ -52,7 +55,6 @@ public class SistemaEstacionamento implements Serializable{
     return novaReserva;
 }
 
-//noemi
     public Reserva fazerReserva(Cliente c, Vaga v)
             throws VagaIndisponivelException {
         return fazerReserva(c, v.getEmpresa(), v);
@@ -86,8 +88,26 @@ public class SistemaEstacionamento implements Serializable{
         }
         return null;
     }
-    
-    
+
+    public ArrayList<Empresa> getEmpresas() {
+        return empresas;
+    }
+
+    public Vaga getVagaReservada() {
+        return vagaReservada;
+    }
+
+    public void reservarVaga(Vaga vaga) {
+        this.vagaReservada = vaga;
+    }
+
+    public void cancelarReserva() {
+        if (vagaReservada != null) {
+            vagaReservada.liberar();
+            vagaReservada = null;
+        }
+    }
+
 
 
 }

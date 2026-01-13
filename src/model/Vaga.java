@@ -40,4 +40,10 @@ public class Vaga implements Serializable{
     this.empresa = empresa;
 }
 
+    @Override
+    public String toString() {
+        return "Empresa: " + empresa.getNome() + " | Vaga " + numero;
+    }
+
+
 }
