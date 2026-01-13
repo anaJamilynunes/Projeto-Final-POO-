@@ -18,11 +18,11 @@ public class TextField extends JTextField{
 //  TextField tfCnpj = new TextField();  
 //         painel.add(tfCnpj);
 
-        painel.add(Box.createVerticalStrut(20)); 
-        EPLabel labelSenha = new EPLabel("Palavra-Passe"); 
-        labelSenha.setAlignmentX(Component.CENTER_ALIGNMENT); 
-        painel.add(labelSenha); 
-        //parte que omite a senha
-        JPasswordField tfSenha = new JPasswordField(8);
+        // painel.add(Box.createVerticalStrut(20)); 
+        // EPLabel labelSenha = new EPLabel("Palavra-Passe"); 
+        // labelSenha.setAlignmentX(Component.CENTER_ALIGNMENT); 
+        // painel.add(labelSenha); 
+        // //parte que omite a senha
+        // JPasswordField tfSenha = new JPasswordField(8);
         
-        tfSenha.setHorizontalAlignment(JTextField.CENTER);
+        // tfSenha.setHorizontalAlignment(JTextField.CENTER);
