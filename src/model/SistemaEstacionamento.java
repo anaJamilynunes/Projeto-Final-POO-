@@ -1,4 +1,5 @@
 package model;
+import java.time.LocalTime;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -40,14 +41,15 @@ public class SistemaEstacionamento implements Serializable{
         return vagasDisponiveis;
     }
 
-    public Reserva fazerReserva(Cliente c, Empresa e, Vaga v)
+    public Reserva fazerReserva(Cliente c, Empresa e, Vaga v, java.time.LocalTime horario)
         throws VagaIndisponivelException {
 
     if (!v.vagaDisponivel()) {
         throw new VagaIndisponivelException();
     }
+java.time.LocalTime agora = java.time.LocalTime.now();
+Reserva novaReserva = new Reserva(c, e, v, horario);
 
-    Reserva novaReserva = new Reserva(c, e, v);
     reservas.add(novaReserva);
     c.reservarVaga(novaReserva);
     return novaReserva;
@@ -55,7 +57,8 @@ public class SistemaEstacionamento implements Serializable{
 
     public Reserva fazerReserva(Cliente c, Vaga v)
             throws VagaIndisponivelException {
-        return fazerReserva(c, v.getEmpresa(), v);
+       java.time.LocalTime agora = java.time.LocalTime.now();
+    return fazerReserva(c, v.getEmpresa(), v, agora);
     }
 
 
@@ -105,24 +108,42 @@ public class SistemaEstacionamento implements Serializable{
             vagaReservada = null;
         }
     }
+     public void confirmarReserva(Cliente cliente, Vaga vaga, java.time.LocalTime horario)
+        throws VagaIndisponivelException {
 
- //a diferença é que busca vaga ativa por empresa especifica
+    if (!vaga.vagaDisponivel()) {
+        throw new VagaIndisponivelException();
+    }
+
+    // Cria a reserva (o construtor já ocupa a vaga)
+    Reserva reserva = new Reserva(cliente, vaga.getEmpresa(), vaga, horario);
+
+    // Registra no sistema e no cliente
+    reservas.add(reserva);
+    cliente.reservarVaga(reserva);
+
+    // ✅ ESTA É A LINHA IMPORTANTE DA SOLUÇÃO MÍNIMA:
+    this.vagaReservada = vaga;
+}
+
+    
+    //a diferença é que busca vaga ativa por empresa especifica
     public boolean empresaTemReservaAtiva(String cnpjEmpresa) {
         for (Reserva r : reservas) {
             if (r.getEmpresa().getCnpj().equals(cnpjEmpresa) &&
-                r.estadoReserva()) {
+            r.estadoReserva()) {
                 return true;
             }
         }
         return false;
-        }
-
-
+    }
+    
+    
     public boolean removerEmpresa(String cnpj) {
         return empresas.removeIf(e -> e.getCnpj().equals(cnpj));
     }
-
-
-
-
+    
+    
+    
+    
 }

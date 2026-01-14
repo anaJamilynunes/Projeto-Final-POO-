@@ -4,7 +4,7 @@ public abstract class Usuario implements Serializable{
     private String nome;
     private int id;
     
-    int contadorUsuarios = 0;
+    private static int contadorUsuarios = 0;
     //atributo de classe
 
 /*Usuarios:

@@ -5,6 +5,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import model.ArquivoUtil;
 import model.Empresa;
 import model.Vaga;
 import model.SistemaEstacionamento;
@@ -34,17 +36,28 @@ public class TelaEmpresaNintendo extends JFrame {
         setContentPane(mainPanel);
 
         // Título
-        JLabel titulo = new JLabel("Painel da Empresa", SwingConstants.CENTER);
-        titulo.setFont(new Font("Monospaced", Font.BOLD, 28));
-        titulo.setForeground(Color.WHITE);
-        titulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        mainPanel.add(titulo, BorderLayout.NORTH);
+        // Painel do topo
+JPanel topPanel = new JPanel();
+topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
+topPanel.setBackground(Color.DARK_GRAY);
 
-        // Resumo no topo
-        lblResumo = new JLabel("", SwingConstants.CENTER);
-        lblResumo.setFont(new Font("Monospaced", Font.BOLD, 16));
-        lblResumo.setForeground(Color.WHITE);
-        mainPanel.add(lblResumo, BorderLayout.NORTH);
+// Título
+JLabel titulo = new JLabel("Painel da Empresa", SwingConstants.CENTER);
+titulo.setFont(new Font("Monospaced", Font.BOLD, 28));
+titulo.setForeground(Color.WHITE);
+titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+topPanel.add(titulo);
+
+// Resumo
+lblResumo = new JLabel("", SwingConstants.CENTER);
+lblResumo.setFont(new Font("Monospaced", Font.BOLD, 16));
+lblResumo.setForeground(Color.WHITE);
+lblResumo.setAlignmentX(Component.CENTER_ALIGNMENT);
+topPanel.add(lblResumo);
+
+// Adiciona o painel do topo ao mainPanel
+mainPanel.add(topPanel, BorderLayout.NORTH);
+
 
         // Tabela de vagas
         String[] colunas = {"Número", "Status", "Ocupante"};
@@ -87,27 +100,35 @@ public class TelaEmpresaNintendo extends JFrame {
     // ------------------ MÉTODOS ------------------
 
     private void adicionarVaga() {
-        int numero = empresa.getVagas().size() + 1;
-        empresa.adicionarVaga();
-        salvarSistema();
-        atualizarTabela();
+    if (!empresa.adicionarVaga()) {  // tenta adicionar, retorna false se atingir o limite
+        JOptionPane.showMessageDialog(
+            this,
+            "Limite máximo de vagas atingido (20).",
+            "Aviso",
+            JOptionPane.WARNING_MESSAGE
+        );
+        return;
     }
+    salvarSistema();
+    atualizarTabela();
+}
 
     private void atualizarTabela() {
-        modeloTabela.setRowCount(0);
-        int ocupadas = 0;
-        for (Vaga v : empresa.getVagas()) {
-            String status = v.vagaDisponivel() ? "Livre" : "Ocupada";
-            String ocupante = v.vagaDisponivel() ? "-" : "Cliente X"; // associar cliente real
-            if (!v.vagaDisponivel()) ocupadas++;
-            modeloTabela.addRow(new Object[]{v.getNumero(), status, ocupante});
-        }
-
-        int total = empresa.getVagas().size();
-        int livres = total - ocupadas;
-        lblResumo.setText("Total: " + total + " | Ocupadas: " + ocupadas + " | Livres: " + livres +
-                " | Horário: 08:00 - 18:00 | Dia: Segunda à Sexta");
+    modeloTabela.setRowCount(0);
+    int ocupadas = 0;
+    for (Vaga v : empresa.getVagas()) {
+        String status = v.vagaDisponivel() ? "Livre" : "Ocupada";
+        String ocupante = v.vagaDisponivel() ? "-" : v.getCliente() + " (" + v.getHoraReserva() + ")";
+        if (!v.vagaDisponivel()) ocupadas++;
+        modeloTabela.addRow(new Object[]{v.getNumero(), status, ocupante});
     }
+
+    int total = empresa.getVagas().size();
+    int livres = total - ocupadas;
+    lblResumo.setText("Total: " + total + " | Ocupadas: " + ocupadas + " | Livres: " + livres +
+            " | Horário: 08:00 - 18:00 | Dia: Segunda à Sexta");
+}
+
 
    private void editarEmpresa() {
         //JOptionPane.showMessageDialog(this, "Função de editar dados da empresa ainda não implementada!");
@@ -126,6 +147,7 @@ public class TelaEmpresaNintendo extends JFrame {
     }
 
     private void salvarSistema() {
+        ArquivoUtil.salvarSistema(sistema);
         System.out.println("Sistema salvo!");
         // Chamar método real de salvar sistema
     }

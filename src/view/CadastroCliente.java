@@ -18,7 +18,7 @@ public class CadastroCliente extends JFrame {
     private SistemaEstacionamento sistema;
     private Vaga vaga;
 
-    public CadastroCliente(SistemaEstacionamento sistema, Vaga vaga) {
+    public CadastroCliente(SistemaEstacionamento sistema, Vaga vaga, java.time.LocalTime horario) {
         this.sistema = sistema;
         this.vaga = vaga;
 
@@ -97,7 +97,7 @@ public class CadastroCliente extends JFrame {
             sistema.cadastrarUsuario(cliente);
 
             try {
-                sistema.fazerReserva(cliente, vaga.getEmpresa(), vaga);
+                sistema.fazerReserva(cliente, vaga.getEmpresa(), vaga, horario);
                 ArquivoUtil.salvarSistema(sistema);
 
                 JOptionPane.showMessageDialog(this,

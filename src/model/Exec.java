@@ -24,7 +24,9 @@ public class Exec {
         Vaga vagaDisponivel = e1.getVagas().get(0);
 
          try {
-            sistema.fazerReserva(c1, e1, vagaDisponivel);
+            java.time.LocalTime agora = java.time.LocalTime.now();
+            sistema.fazerReserva(c1, e1, vagaDisponivel, agora);
+
             System.out.println("Reserva realizada com sucesso!");
         } catch (VagaIndisponivelException e) {
             System.out.println("Erro ao reservar: " + e.getMessage());

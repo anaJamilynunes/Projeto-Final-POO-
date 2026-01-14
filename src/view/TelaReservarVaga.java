@@ -4,7 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+
 import model.SistemaEstacionamento;
+import model.Cliente;
 import model.Empresa;
 import model.Vaga;
 import ui.ButtonPdr;
@@ -14,6 +16,7 @@ import ui.Gradient;
 public class TelaReservarVaga extends JFrame {
 
     private SistemaEstacionamento sistema;
+    private Cliente cliente;
     private JList<Vaga> listaVagas;
     private DefaultListModel<Vaga> modelLista;
 
@@ -113,34 +116,55 @@ public class TelaReservarVaga extends JFrame {
         }
     }
 
-    //RESERVA UMA VAGA
+    //RESErva
     private void reservar() {
-        if (sistema.getVagaReservada() != null) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Você já possui uma reserva.",
-                    "Aviso",
-                    JOptionPane.WARNING_MESSAGE
-            );
-            return;
-        }
+    Vaga vagaSelecionada = listaVagas.getSelectedValue();
 
-        Vaga vagaSelecionada = listaVagas.getSelectedValue();
-
-        if (vagaSelecionada == null) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Selecione uma vaga.",
-                    "Erro",
-                    JOptionPane.ERROR_MESSAGE
-            );
-            return;
-        }
-
-        sistema.reservarVaga(vagaSelecionada);
-        new CadastroCliente(sistema, vagaSelecionada);
-        dispose();
+    if (vagaSelecionada == null) {
+        JOptionPane.showMessageDialog(
+                this,
+                "Selecione uma vaga.",
+                "Erro",
+                JOptionPane.ERROR_MESSAGE
+        );
+        return;
     }
+
+    // Solicitar horário
+    String horarioStr = JOptionPane.showInputDialog(
+            this,
+            "Informe o horário da reserva (HH:mm):"
+    );
+
+    if (horarioStr == null || horarioStr.isEmpty()) return;
+
+    java.time.LocalTime horario;
+    try {
+        horario = java.time.LocalTime.parse(horarioStr);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Horário inválido! Use HH:mm");
+        return;
+    }
+    new CadastroCliente(sistema, vagaSelecionada, horario);
+
+    // opcional: fecha a tela atual
+    dispose();
+
+    // Confirmar reserva no sistema
+     try {
+        sistema.confirmarReserva(cliente, vagaSelecionada, horario);
+        JOptionPane.showMessageDialog(this, "Reserva realizada com sucesso!");
+
+        // Atualiza lista de vagas
+        carregarVagas();
+
+        // Fecha a tela ou mantém aberta para reservar mais
+        // dispose(); 
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Erro ao reservar: " + e.getMessage());
+    }
+}
+
 
     //CANCELA RESERVA
     private void cancelarReserva() {

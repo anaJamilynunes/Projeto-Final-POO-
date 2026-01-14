@@ -4,7 +4,6 @@ import java.util.ArrayList;
 public class Empresa extends Usuario{
     private String cnpj;
     private String senha;
-    
     private int limiteVagas = 20;
     private ArrayList<Vaga> vagas = new ArrayList<>();
     
@@ -37,18 +36,17 @@ public boolean podeAdicionarVaga() {
         return vagas.size() < limiteVagas;
     }
 
-    public void adicionarVaga() {
-        if (!podeAdicionarVaga()) {
-            throw new RuntimeException("Limite máximo de vagas atingido!");
-        }
+    public boolean adicionarVaga() {
+        if (!podeAdicionarVaga()) return false;
         vagas.add(new Vaga(vagas.size() + 1, this));
+        return true;
     }
 
     public void adicionarVaga(Vaga v) {
-    if (v != null && podeAdicionarVaga()) {
-        vagas.add(v);
+        if (v != null && podeAdicionarVaga()) {
+            vagas.add(v);
+        }
     }
-}
 
 
     public int vagasDisponiveis() {

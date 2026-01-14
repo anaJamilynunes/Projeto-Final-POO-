@@ -6,7 +6,8 @@ public class ArquivoUtil {
     public static void salvarSistema(SistemaEstacionamento sistema) {
         try {
             ObjectOutputStream out =
-                new ObjectOutputStream(new FileOutputStream("src/estacionamento.dat"));
+                new ObjectOutputStream(new FileOutputStream("estacionamento.dat")
+);
             out.writeObject(sistema);
             out.close();
         } catch (IOException e) {
@@ -17,7 +18,8 @@ public class ArquivoUtil {
     public static SistemaEstacionamento carregarSistema() {
         try {
             ObjectInputStream in =
-                new ObjectInputStream(new FileInputStream("src/estacionamento.dat"));
+                new ObjectInputStream(new FileInputStream("estacionamento.dat")
+);
             SistemaEstacionamento s = (SistemaEstacionamento) in.readObject();
             in.close();
             return s;

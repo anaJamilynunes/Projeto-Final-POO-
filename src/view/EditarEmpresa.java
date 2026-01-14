@@ -187,7 +187,7 @@ public class EditarEmpresa extends JFrame {
             new EntradaEmpresa(sistema);
             dispose();
         }
-        sistema.removerEmpresa(empresa.getCnpj());
+
         System.out.println("Após remover: " + sistema.buscarEmpresaPorCnpj(empresa.getCnpj()));
         //se null empresa deletada ok!
     }

@@ -1,20 +1,23 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 public class Reserva implements GerenciarR, Serializable{
     Cliente cliente;
     private Empresa empresa;
     Vaga vaga;
     boolean vagaAtiva;
+    private LocalTime horario;
 
-    public Reserva(Cliente cliente, Empresa empresa, Vaga vaga){
+    public Reserva(Cliente cliente, Empresa empresa, Vaga vaga, LocalTime horario){
         this.cliente = cliente;
         this.empresa = empresa;
         this.vaga = vaga;
         this.vagaAtiva = true;
+        this.horario = horario;
 
         //para que quando a reserva for criada a vaga seja ocupada
-        this.vaga.ocupar();
+        this.vaga.ocupar(cliente.getNome(), horario);
     }
     @Override
     public void cancelar(){
