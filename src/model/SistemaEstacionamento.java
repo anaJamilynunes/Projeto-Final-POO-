@@ -41,13 +41,11 @@ public class SistemaEstacionamento implements Serializable{
         return vagasDisponiveis;
     }
 
-    public Reserva fazerReserva(Cliente c, Empresa e, Vaga v, java.time.LocalTime horario)
-        throws VagaIndisponivelException {
+    public Reserva fazerReserva(Cliente c, Empresa e, Vaga v, LocalTime horario)
+            throws VagaIndisponivelException {
 
-    if (!v.vagaDisponivel()) {
-        throw new VagaIndisponivelException();
-    }
-java.time.LocalTime agora = java.time.LocalTime.now();
+
+        java.time.LocalTime agora = java.time.LocalTime.now();
 Reserva novaReserva = new Reserva(c, e, v, horario);
 
     reservas.add(novaReserva);
@@ -57,12 +55,12 @@ Reserva novaReserva = new Reserva(c, e, v, horario);
 
     public Reserva fazerReserva(Cliente c, Vaga v)
             throws VagaIndisponivelException {
-       java.time.LocalTime agora = java.time.LocalTime.now();
-    return fazerReserva(c, v.getEmpresa(), v, agora);
+        LocalTime agora = LocalTime.now();
+        return fazerReserva(c, v.getEmpresa(), v, agora);
     }
 
 
-    public void liberarReserva(Reserva reserva){
+public void liberarReserva(Reserva reserva){
         reserva.cancelar();
         reservas.remove(reserva);
     }

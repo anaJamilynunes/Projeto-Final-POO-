@@ -107,9 +107,16 @@ public class CadastroCliente extends JFrame {
 
                 dispose();
 
+
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage());
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Cliente não cadastrado.",
+                        "Erro",
+                        JOptionPane.ERROR_MESSAGE
+                );
             }
+
         });
 
         setVisible(true);
