@@ -8,6 +8,7 @@ public class Reserva implements GerenciarR, Serializable{
     Vaga vaga;
     boolean vagaAtiva;
     private LocalTime horario;
+    private RegistroReserva registro;
 
     public Reserva(Cliente cliente, Empresa empresa, Vaga vaga, LocalTime horario){
         this.cliente = cliente;
@@ -29,6 +30,7 @@ public class Reserva implements GerenciarR, Serializable{
             System.out.println("Esta reserva está inativa!");
         }
     }
+
     //retorna se a vaga está ou não ativa
     @Override
     public boolean estadoReserva(){
@@ -43,5 +45,15 @@ public class Reserva implements GerenciarR, Serializable{
         this.empresa = empresa;
     }
 
+    public void setRegistro(RegistroReserva registro) {
+    this.registro = registro;
+    }   
+
+    public RegistroReserva getRegistro() {
+        return registro;
+    }
+
+    public Cliente getCliente() { return cliente; }
+    public LocalTime getHorario() { return horario; }
     
 }

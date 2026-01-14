@@ -18,7 +18,7 @@ public class IndexView extends JFrame{
         setVisible(true);
         setSize( 800, 500);
         setResizable(false);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setLocationRelativeTo(null); //centralizar
 

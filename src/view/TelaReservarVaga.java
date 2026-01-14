@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.SistemaEstacionamento;
+import model.ArquivoUtil;
 import model.Cliente;
 import model.Empresa;
 import model.Vaga;
@@ -79,11 +80,6 @@ public class TelaReservarVaga extends JFrame {
         listaVagas = new JList<>(modelLista);
         listaVagas.setVisibleRowCount(6);
 
-        //comentando para se adequal ao tamanho da tela
-        // JScrollPane scroll = new JScrollPane(listaVagas);
-        // scroll.setPreferredSize(new Dimension(350, 150));
-        // painel.add(scroll);
-
         JScrollPane scroll = new JScrollPane(listaVagas);
 
         Dimension size = new Dimension(350, 150);
@@ -110,21 +106,12 @@ public class TelaReservarVaga extends JFrame {
 
         painel.add(Box.createVerticalStrut(10));
 
-        // ButtonPdr btnVoltar = new ButtonPdr("Voltar");
-        // btnVoltar.setAlignmentX(Component.CENTER_ALIGNMENT);
-        // painel.add(btnVoltar);
-
         carregarVagas();
 
         // EVENTOS
         btnReservar.addActionListener(e -> reservar());
 
         btnCancelar.addActionListener(e -> cancelarReserva());
-
-        // btnVoltar.addActionListener(e -> {
-        //     new IndexView(sistema).setVisible(true);
-        //     dispose();
-        // });
 
         setVisible(true);
     }
@@ -191,23 +178,7 @@ public class TelaReservarVaga extends JFrame {
 
     // opcional: fecha a tela atual
     dispose();
-
-    // Confirmar reserva no sistema
-//      try {
-//         sistema.confirmarReserva(cliente, vagaSelecionada, horario);
-//         JOptionPane.showMessageDialog(this, "Reserva realizada com sucesso!");
-
-//         // Atualiza lista de vagas
-//         carregarVagas();
-
-//         // Fecha a tela ou mantém aberta para reservar mais
-//         // dispose(); 
-//  } catch (Exception e) {
-//     //     JOptionPane.showMessageDialog(this, "Erro ao reservar: " + e.getMessage());
-//      }
 }
-
-
     //CANCELA RESERVA
     private void cancelarReserva() {
         if (sistema.getVagaReservada() == null) {
@@ -221,6 +192,7 @@ public class TelaReservarVaga extends JFrame {
         }
 
         sistema.cancelarReserva();
+        ArquivoUtil.salvarSistema(sistema);
 
         JOptionPane.showMessageDialog(
                 this,

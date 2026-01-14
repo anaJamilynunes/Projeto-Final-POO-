@@ -14,9 +14,21 @@ public class Exec {
         Empresa e1 = new Empresa();
         e1.setNome("Shopping Center");
 
-        
+
+        Usuario u1 = new Cliente(
+        "João",
+        "123.456.789-00",
+        "ABC-1234",
+        "Carro"
+        );
+
+        Usuario u2 = new Empresa();
+        u2.setNome("Shopping Center");
+                
         sistema.cadastrarUsuario(c1);
         sistema.cadastrarUsuario(e1);
+        sistema.cadastrarUsuario(u1);
+        sistema.cadastrarUsuario(u2);
         
         e1.adicionarVaga();
         e1.adicionarVaga();
