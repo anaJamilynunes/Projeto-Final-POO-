@@ -17,6 +17,7 @@ import ui.Gradient;
 
 public class EntradaEmpresa extends JFrame {
     private SistemaEstacionamento sistema;
+    private Empresa empresa;
     public EntradaEmpresa(SistemaEstacionamento sistema) { //tela de login - entrada cnpj e senha - entrada pra p/n login 
     this.sistema = sistema;
     
@@ -27,10 +28,36 @@ public class EntradaEmpresa extends JFrame {
             new Color(169,113,66) 
         ); 
         setContentPane(painel2); 
-        painel2.setLayout(new GridBagLayout()); // centralizar
+        painel2.setLayout(new BorderLayout());
+        
+        //fazer o botao de voltar
+        JPanel painelTopo = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        painelTopo.setOpaque(false);
+        painelTopo.setBorder(new EmptyBorder(10, 10, 0, 0));
+        
+        ImageIcon img1 = new ImageIcon("src/img/btnvoltar.png"); 
+        Image imgIcon = img1.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);  
+        JLabel btnVoltar = new JLabel(new ImageIcon(imgIcon)); 
+        btnVoltar.setAlignmentX(Component.RIGHT_ALIGNMENT);
+     
+        btnVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnVoltar.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 0)); 
+        
+        btnVoltar.addMouseListener(new java.awt.event.MouseAdapter() { 
+             @Override 
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+            //SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
+            new IndexView(sistema);
+            dispose();
+            }
+        }); 
+        painelTopo.add(btnVoltar);
+        painel2.add(painelTopo, BorderLayout.NORTH);
+
+        //---------
 
 
-        setTitle("Empresa"); 
+        setTitle("Login Empresa"); 
         setVisible(true); 
         setSize( 800, 500); 
         setResizable(false); 
@@ -41,36 +68,16 @@ public class EntradaEmpresa extends JFrame {
         painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS)); 
         painel.setOpaque(false); // deixa o degradê aparecer 
         painel2.add(painel); 
-
-        //fazer o botao de voltar
-        ImageIcon img1 = new ImageIcon("src/img/btnvoltar.png"); 
-        Image imgIcon = img1.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);  
-        JLabel btnVoltar = new JLabel(new ImageIcon(imgIcon)); 
-        btnVoltar.setAlignmentX(Component.RIGHT_ALIGNMENT);
-     
-        btnVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnVoltar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 0)); 
-        //painel.add(btnVoltar); 
-        
-        btnVoltar.addMouseListener(new java.awt.event.MouseAdapter() { 
-             @Override 
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-            //SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
-            new IndexView(sistema);
-            dispose();
-            }
-        }); 
-        painel.add(btnVoltar);
         
         ImageIcon img = new ImageIcon("src/img/user.png"); 
         Image imagem = img.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH); 
         JLabel labelImagem = new JLabel(new ImageIcon(imagem)); 
         labelImagem.setAlignmentX(Component.CENTER_ALIGNMENT); 
         
-        labelImagem.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0)); 
+        labelImagem.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0)); 
         
         painel.add(labelImagem); 
-
+ 
         EPLabel titulo = EPLabel.titulo("Bem-vindo de volta!"); 
         titulo.setAlignmentX(Component.CENTER_ALIGNMENT); 
         painel.add(titulo); 
@@ -83,6 +90,7 @@ public class EntradaEmpresa extends JFrame {
         painel.add(labelCNPJ); 
 
         TextField tfCnpj = new TextField();  
+        tfCnpj.setMaximumSize(tfCnpj.getPreferredSize());
         painel.add(tfCnpj); 
 
         painel.add(Box.createVerticalStrut(20)); 
@@ -90,19 +98,22 @@ public class EntradaEmpresa extends JFrame {
         labelSenha.setAlignmentX(Component.CENTER_ALIGNMENT); 
         painel.add(labelSenha); 
         //parte que omite a senha
-        JPasswordField tfSenha = new JPasswordField(8);
-        
-        tfSenha.setHorizontalAlignment(JTextField.CENTER);
-        tfSenha.setBackground(new Color(0xFFF4D6)); // amarelo muito claro
-        tfSenha.setForeground(new Color(0x7A1022)); // vinho
-        tfSenha.setCaretColor(new Color(0x7A1022));
 
-        tfSenha.setBorder(new EmptyBorder(8, 12, 8, 12)); // padding interno
-        tfSenha.setPreferredSize(new Dimension(280, 40));
+        TextField modelo = new TextField();
+        Dimension padrao = modelo.getPreferredSize();
+
+        JPasswordField tfSenha = new JPasswordField(8);
+        TextField.aplicarEstilo(tfSenha);
+
+        tfSenha.setPreferredSize(padrao);
+        tfSenha.setMaximumSize(padrao);
+        tfSenha.setMinimumSize(padrao);
+        //tfSenha.setMaximumSize(tfSenha.getPreferredSize());
+
         painel.add(tfSenha);
 
         
-        painel.add(Box.createVerticalStrut(20)); 
+        painel.add(Box.createVerticalStrut(10)); 
         
         //label clicavel + hover 
         EPLabel labelCriarLogin = new EPLabel("Não tem login?"); 
@@ -112,7 +123,7 @@ public class EntradaEmpresa extends JFrame {
         painel.add(labelCriarLogin); 
         
         Color normal = new Color(107, 74, 53); // mesma do botão 
-        Color hover = new Color(138, 111, 90); // hover do botão 
+        Color hover = new Color(253,210,120); // hover do botão 
         
         
         labelCriarLogin.setForeground(normal); 
@@ -128,13 +139,17 @@ public class EntradaEmpresa extends JFrame {
             } @Override 
             public void mouseClicked(java.awt.event.MouseEvent e) {
             //SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
-            new TelaDadosEmpresa(sistema);
+            new TelaDadosEmpresa(sistema, empresa);
             dispose();
             }
         }); 
         
     painel.add(Box.createVerticalStrut(10)); 
+
     ButtonPdr entrar = new ButtonPdr("Entrar");
+    Dimension d = entrar.getPreferredSize();
+    entrar.setMaximumSize(d); 
+    entrar.setMinimumSize(d); 
     entrar.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     //inicio da validacao

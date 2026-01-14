@@ -20,7 +20,7 @@ public class EditarEmpresa extends JFrame {
     private TextField txtNome;
     private TextField txtCnpj;
     private JPasswordField txtSenha;
-
+ 
     public EditarEmpresa(SistemaEstacionamento sistema, Empresa empresa) {
         this.empresa = empresa;
         this.sistema = sistema;
@@ -31,7 +31,35 @@ public class EditarEmpresa extends JFrame {
         );
 
         setContentPane(painel2);
-        painel2.setLayout(new GridBagLayout());
+        //painel2.setLayout(new GridBagLayout());
+        painel2.setLayout(new BorderLayout());
+
+        //painel pra seta de voltar
+        JPanel painelTopo = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        painelTopo.setOpaque(false);
+        painelTopo.setBorder(new EmptyBorder(10, 10, 0, 0));
+
+                ImageIcon img1 = new ImageIcon("src/img/btnvoltar.png"); 
+        Image imgIcon = img1.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);  
+        JLabel btnVoltar = new JLabel(new ImageIcon(imgIcon)); 
+        btnVoltar.setAlignmentX(Component.RIGHT_ALIGNMENT);
+
+        btnVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnVoltar.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 0)); 
+        
+            btnVoltar.addMouseListener(new java.awt.event.MouseAdapter() { 
+             @Override 
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+            new TelaEmpresaNintendo(sistema, empresa);
+            dispose();
+            } 
+        }); 
+
+        painelTopo.add(btnVoltar);
+        painel2.add(painelTopo, BorderLayout.NORTH);
+
+        //------------------
+
 
         setTitle("Dados da Empresa");
         setVisible(true);
@@ -43,94 +71,95 @@ public class EditarEmpresa extends JFrame {
         JPanel painel = new JPanel();
         painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS));
         painel.setOpaque(false);
-        painel2.add(painel);
+        painel2.add(painel, BorderLayout.CENTER);
 
-        ImageIcon img1 = new ImageIcon("src/img/btnvoltar.png"); 
-        Image imgIcon = img1.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);  
-        JLabel btnVoltar = new JLabel(new ImageIcon(imgIcon)); 
-        btnVoltar.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        // ImageIcon img1 = new ImageIcon("src/img/btnvoltar.png"); 
+        // Image imgIcon = img1.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);  
+        // JLabel btnVoltar = new JLabel(new ImageIcon(imgIcon)); 
+        // btnVoltar.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
-        btnVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnVoltar.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 0)); 
+        // btnVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        // btnVoltar.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 0)); 
         
-            btnVoltar.addMouseListener(new java.awt.event.MouseAdapter() { 
-             @Override 
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-            //SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
-            new TelaEmpresaNintendo(sistema, null);
-            dispose();
-            }
-        }); 
-        painel.add(btnVoltar);
+        //     btnVoltar.addMouseListener(new java.awt.event.MouseAdapter() { 
+        //      @Override 
+        //     public void mouseClicked(java.awt.event.MouseEvent e) {
+        //     new TelaEmpresaNintendo(sistema, null);
+        //     dispose();
+        //     } 
+        // }); 
+        // painel.add(btnVoltar);
 
         ImageIcon img = new ImageIcon("src/img/user.png");
         Image imagem = img.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         JLabel labelImagem = new JLabel(new ImageIcon(imagem));
         labelImagem.setAlignmentX(Component.CENTER_ALIGNMENT);
-        labelImagem.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        labelImagem.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
         painel.add(labelImagem);
 
         EPLabel titulo = EPLabel.titulo("Editar dados da Empresa");
         titulo.setAlignmentX(Component.CENTER_ALIGNMENT);
         painel.add(titulo);
 
-        painel.add(Box.createVerticalStrut(15));
+        painel.add(Box.createVerticalStrut(10));
 
         EPLabel labelNome = new EPLabel("Nome da Empresa");
         labelNome.setAlignmentX(Component.CENTER_ALIGNMENT);
         painel.add(labelNome);
 
         txtNome = new TextField();
+        txtNome.setMaximumSize(txtNome.getPreferredSize());
         painel.add(txtNome);
 
-        painel.add(Box.createVerticalStrut(15));
+        painel.add(Box.createVerticalStrut(10));
 
         EPLabel labelCnpj = new EPLabel("CNPJ");
         labelCnpj.setAlignmentX(Component.CENTER_ALIGNMENT);
         painel.add(labelCnpj);
 
         txtCnpj = new TextField();
+        txtCnpj.setMaximumSize(txtCnpj.getPreferredSize());
         painel.add(txtCnpj);
 
-        painel.add(Box.createVerticalStrut(15));
+        painel.add(Box.createVerticalStrut(10));
 
         //validação
 
         EPLabel labelSenha = new EPLabel("Palavra Passe");
         labelSenha.setAlignmentX(Component.CENTER_ALIGNMENT);
         painel.add(labelSenha);
-        //omissao da senha
-        
-        txtSenha = new JPasswordField(8);
-        
-        txtSenha.setHorizontalAlignment(JTextField.CENTER);
-        txtSenha.setBackground(new Color(0xFFF4D6)); // amarelo muito claro
-        txtSenha.setForeground(new Color(0x7A1022)); // vinho
-        txtSenha.setCaretColor(new Color(0x7A1022));
 
-        txtSenha.setBorder(new EmptyBorder(8, 12, 8, 12)); // padding interno
-        txtSenha.setPreferredSize(new Dimension(280, 40));
+        //omissao da senha
+        TextField modelo = new TextField();
+        Dimension padrao = modelo.getPreferredSize();
+        txtSenha = new JPasswordField(8);
+        TextField.aplicarEstilo(txtSenha);
+        //estetica
+        
+        txtSenha.setPreferredSize(padrao);
+        txtSenha.setMaximumSize(padrao);
+        txtSenha.setMinimumSize(padrao);
+        
         painel.add(txtSenha);
 
         //validação
 
-        painel.add(Box.createVerticalStrut(15));
+        painel.add(Box.createVerticalStrut(5));
 
-        ButtonPdr btnCadastrar = new ButtonPdr("Editar");
+        ButtonPdr btnCadastrar = new ButtonPdr("Editar Dados");
         //btnCadastrar.setAlignmentX(Component.LEFT_ALIGNMENT);
         painel.add(btnCadastrar);
 
         ButtonPdr btnDeletar = new ButtonPdr("Deletar Empresa");
         //btnDeletar.setAlignmentX(Component.RIGHT_ALIGNMENT);
         painel.add(btnDeletar);
-        JPanel painelBotoes = new JPanel(new GridLayout(1, 2, 10, 0));
+        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         painelBotoes.setOpaque(false);
-
-        btnCadastrar.setPreferredSize(new Dimension(200, 40));
-        btnDeletar.setPreferredSize(new Dimension(200, 40));
 
         painelBotoes.add(btnCadastrar);
         painelBotoes.add(btnDeletar);
+
+        painel.add(Box.createVerticalStrut(10));
 
         painel.add(painelBotoes);
 

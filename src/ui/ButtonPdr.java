@@ -24,7 +24,7 @@ public class ButtonPdr extends JButton {
         setContentAreaFilled(false);
         setOpaque(false);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
-        setPreferredSize(new Dimension(180, 45));
+        setPreferredSize(new Dimension(200, 45));
 
 
         // Hover

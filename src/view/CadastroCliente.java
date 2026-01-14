@@ -21,7 +21,7 @@ public class CadastroCliente extends JFrame {
     public CadastroCliente(SistemaEstacionamento sistema, Vaga vaga, java.time.LocalTime horario) {
         this.sistema = sistema;
         this.vaga = vaga;
-
+ 
         setTitle("Cadastro do Cliente");
         setSize(800, 520);
         setResizable(false);
@@ -29,8 +29,8 @@ public class CadastroCliente extends JFrame {
         setLocationRelativeTo(null);
 
         Gradient fundo = new Gradient(
-                new Color(0xFF, 0xE5, 0xA5),
-                new Color(0xFF, 0xE5, 0xA5)
+            new Color(253,210,120),
+            new Color(169,113,66) 
         );
         setContentPane(fundo);
         fundo.setLayout(new GridBagLayout());

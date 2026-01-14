@@ -1,6 +1,8 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,7 @@ import ui.EPLabel;
 import ui.Gradient;
 
 public class TelaReservarVaga extends JFrame {
-
+ 
     private SistemaEstacionamento sistema;
     private Cliente cliente;
     private JList<Vaga> listaVagas;
@@ -30,11 +32,36 @@ public class TelaReservarVaga extends JFrame {
         setLocationRelativeTo(null);
 
         Gradient fundo = new Gradient(
-                new Color(0xFF, 0xE5, 0xA5),
-                new Color(0xFF, 0xE5, 0xA5)
+            new Color(253,210,120),
+            new Color(169,113,66) 
         );
         setContentPane(fundo);
-        fundo.setLayout(new GridBagLayout());
+        fundo.setLayout(new BorderLayout());
+
+        //btn de voltar
+        JPanel painelTopo = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        painelTopo.setOpaque(false);
+        painelTopo.setBorder(new EmptyBorder(10, 10, 0, 0));
+        
+        ImageIcon img1 = new ImageIcon("src/img/btnvoltar.png"); 
+        Image imgIcon = img1.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);  
+        JLabel btnVoltar = new JLabel(new ImageIcon(imgIcon)); 
+        btnVoltar.setAlignmentX(Component.RIGHT_ALIGNMENT);
+     
+        btnVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnVoltar.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 0)); 
+        
+        btnVoltar.addMouseListener(new java.awt.event.MouseAdapter() { 
+             @Override 
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+            //SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
+            new IndexView(sistema).setVisible(true);
+            dispose();
+            }
+        }); 
+        painelTopo.add(btnVoltar);
+        fundo.add(painelTopo, BorderLayout.NORTH);
+        //
 
         JPanel painel = new JPanel();
         painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS));
@@ -52,9 +79,20 @@ public class TelaReservarVaga extends JFrame {
         listaVagas = new JList<>(modelLista);
         listaVagas.setVisibleRowCount(6);
 
+        //comentando para se adequal ao tamanho da tela
+        // JScrollPane scroll = new JScrollPane(listaVagas);
+        // scroll.setPreferredSize(new Dimension(350, 150));
+        // painel.add(scroll);
+
         JScrollPane scroll = new JScrollPane(listaVagas);
-        scroll.setPreferredSize(new Dimension(350, 150));
+
+        Dimension size = new Dimension(350, 150);
+        scroll.setPreferredSize(size);
+        scroll.setMaximumSize(size);   // impede BoxLayout de esticar
+        scroll.setMinimumSize(size);   // impede de encolher
+
         painel.add(scroll);
+
 
         painel.add(Box.createVerticalStrut(20));
 
@@ -62,15 +100,19 @@ public class TelaReservarVaga extends JFrame {
         btnReservar.setAlignmentX(Component.CENTER_ALIGNMENT);
         painel.add(btnReservar);
 
+        painel.add(Box.createVerticalStrut(10));
+
         ButtonPdr btnCancelar = new ButtonPdr("Cancelar Reserva");
         btnCancelar.setAlignmentX(Component.CENTER_ALIGNMENT);
         painel.add(btnCancelar);
 
         painel.add(Box.createVerticalStrut(10));
 
-        ButtonPdr btnVoltar = new ButtonPdr("Voltar");
-        btnVoltar.setAlignmentX(Component.CENTER_ALIGNMENT);
-        painel.add(btnVoltar);
+        painel.add(Box.createVerticalStrut(10));
+
+        // ButtonPdr btnVoltar = new ButtonPdr("Voltar");
+        // btnVoltar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // painel.add(btnVoltar);
 
         carregarVagas();
 
@@ -79,10 +121,10 @@ public class TelaReservarVaga extends JFrame {
 
         btnCancelar.addActionListener(e -> cancelarReserva());
 
-        btnVoltar.addActionListener(e -> {
-            new IndexView(sistema).setVisible(true);
-            dispose();
-        });
+        // btnVoltar.addActionListener(e -> {
+        //     new IndexView(sistema).setVisible(true);
+        //     dispose();
+        // });
 
         setVisible(true);
     }
