@@ -25,9 +25,9 @@ public class TelaEmpresaNintendo extends JFrame {
         this.sistema = sistema;
 
         setTitle("Painel da Empresa");
-        setSize(900, 600);
-        setVisible(true);
+        setSize(800, 500);
         setLocationRelativeTo(null);
+        setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         // Painel principal
@@ -126,7 +126,7 @@ mainPanel.add(topPanel, BorderLayout.NORTH);
     int total = empresa.getVagas().size();
     int livres = total - ocupadas;
     lblResumo.setText("Total: " + total + " | Ocupadas: " + ocupadas + " | Livres: " + livres +
-            " | Horário: 08:00 - 18:00 | Dia: Segunda à Sexta");
+            " | Horário: 08:00 - 18:00 | Dia: Segunda");
 }
 
 

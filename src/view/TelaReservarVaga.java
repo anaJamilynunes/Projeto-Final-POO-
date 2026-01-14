@@ -193,18 +193,18 @@ public class TelaReservarVaga extends JFrame {
     dispose();
 
     // Confirmar reserva no sistema
-     try {
-        sistema.confirmarReserva(cliente, vagaSelecionada, horario);
-        JOptionPane.showMessageDialog(this, "Reserva realizada com sucesso!");
+//      try {
+//         sistema.confirmarReserva(cliente, vagaSelecionada, horario);
+//         JOptionPane.showMessageDialog(this, "Reserva realizada com sucesso!");
 
-        // Atualiza lista de vagas
-        carregarVagas();
+//         // Atualiza lista de vagas
+//         carregarVagas();
 
-        // Fecha a tela ou mantém aberta para reservar mais
-        // dispose(); 
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Erro ao reservar: " + e.getMessage());
-    }
+//         // Fecha a tela ou mantém aberta para reservar mais
+//         // dispose(); 
+//  } catch (Exception e) {
+//     //     JOptionPane.showMessageDialog(this, "Erro ao reservar: " + e.getMessage());
+//      }
 }
 
 
