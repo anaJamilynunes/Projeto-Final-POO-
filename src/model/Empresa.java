@@ -7,7 +7,7 @@ public class Empresa extends Usuario{
     private String senha;
     private int limiteVagas = 20;
     private ArrayList<Vaga> vagas = new ArrayList<>();
-    private List<RegistroReserva> historicoReservas = new ArrayList<>();
+    private ArrayList<RegistroReserva> historicoReservas = new ArrayList<>();
     
     @Override
     public String tipoUser(){
@@ -82,7 +82,6 @@ public boolean podeAdicionarVaga() {
         return historicoReservas;
     }
 //Quem oferece disponibilidade de vagas de estacionamento
-
 
 }
 

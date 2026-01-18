@@ -1,4 +1,4 @@
-package TO;
+package model.TO;
 
 public class ClienteTO {
 
