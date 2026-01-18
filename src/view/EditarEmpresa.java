@@ -73,22 +73,6 @@ public class EditarEmpresa extends JFrame {
         painel.setOpaque(false);
         painel2.add(painel, BorderLayout.CENTER);
 
-        // ImageIcon img1 = new ImageIcon("src/img/btnvoltar.png"); 
-        // Image imgIcon = img1.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);  
-        // JLabel btnVoltar = new JLabel(new ImageIcon(imgIcon)); 
-        // btnVoltar.setAlignmentX(Component.RIGHT_ALIGNMENT);
-
-        // btnVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        // btnVoltar.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 0)); 
-        
-        //     btnVoltar.addMouseListener(new java.awt.event.MouseAdapter() { 
-        //      @Override 
-        //     public void mouseClicked(java.awt.event.MouseEvent e) {
-        //     new TelaEmpresaNintendo(sistema, null);
-        //     dispose();
-        //     } 
-        // }); 
-        // painel.add(btnVoltar);
 
         ImageIcon img = new ImageIcon("src/img/user.png");
         Image imagem = img.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);

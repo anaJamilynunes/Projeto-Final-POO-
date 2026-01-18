@@ -1,11 +1,13 @@
 package model;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Empresa extends Usuario{
     private String cnpj;
     private String senha;
     private int limiteVagas = 20;
     private ArrayList<Vaga> vagas = new ArrayList<>();
+    private List<RegistroReserva> historicoReservas = new ArrayList<>();
     
     @Override
     public String tipoUser(){
@@ -42,6 +44,7 @@ public boolean podeAdicionarVaga() {
         return true;
     }
 
+
     public void adicionarVaga(Vaga v) {
         if (v != null && podeAdicionarVaga()) {
             vagas.add(v);
@@ -71,8 +74,14 @@ public boolean podeAdicionarVaga() {
         this.limiteVagas = limiteVagas;
     }
 
-//Quem oferece disponibilidade de vagas de estacionamento
+    public void adicionarRegistro(RegistroReserva registro) {
+    historicoReservas.add(registro);
+    }
 
+    public List<RegistroReserva> getHistoricoReservas() {
+        return historicoReservas;
+    }
+//Quem oferece disponibilidade de vagas de estacionamento
 
 
 }

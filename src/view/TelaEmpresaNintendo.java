@@ -74,20 +74,39 @@ mainPanel.add(topPanel, BorderLayout.NORTH);
         mainPanel.add(scroll, BorderLayout.CENTER);
 
         // Rodapé com botões
-        JPanel footer = new JPanel();
+        // JPanel footer = new JPanel();
+        // footer.setBackground(Color.DARK_GRAY);
+
+        JPanel footer = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
         footer.setBackground(Color.DARK_GRAY);
+
+
+        ButtonPdr btnVoltar = new ButtonPdr("Sair");
+            btnVoltar.addActionListener(e -> {
+                new EntradaEmpresa(sistema);
+                dispose();
+            });
 
         ButtonPdr btnAdicionar = new ButtonPdr("Adicionar Vaga");
         btnAdicionar.addActionListener(e -> adicionarVaga());
 
         //ButtonPdr btnEditarEmpresa = new ButtonPdr("Editar Dados Empresa");
         //btnEditarEmpresa.addActionListener(e -> editarEmpresa());
-        ButtonPdr btnEditarEmpresa = new ButtonPdr("Editar Dados Empresa");
+        ButtonPdr btnEditarEmpresa = new ButtonPdr("Editar Empresa");
         btnEditarEmpresa.addActionListener(e -> editarEmpresa());
 
-        ButtonPdr btnRelatorio = new ButtonPdr("Gerar Relatório");
+        ButtonPdr btnRelatorio = new ButtonPdr("Relatório");
         btnRelatorio.addActionListener(e -> gerarRelatorio());
+        
+        Dimension d = new Dimension(180, 40);
 
+        btnAdicionar.setPreferredSize(d);
+        btnEditarEmpresa.setPreferredSize(d);
+        btnVoltar.setPreferredSize(d);
+        btnRelatorio.setPreferredSize(d);
+        
+        
+        footer.add(btnVoltar);
         footer.add(btnAdicionar);
         footer.add(btnEditarEmpresa);
         footer.add(btnRelatorio);
@@ -136,14 +155,16 @@ mainPanel.add(topPanel, BorderLayout.NORTH);
         dispose();
     }
     private void gerarRelatorio() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Relatório da Empresa:\n\n");
-        for (Vaga v : empresa.getVagas()) {
-            sb.append("Vaga ").append(v.getNumero())
-                    .append(" - ").append(v.vagaDisponivel() ? "Livre" : "Ocupada")
-                    .append("\n");
-        }
-        JOptionPane.showMessageDialog(this, sb.toString(), "Relatório", JOptionPane.INFORMATION_MESSAGE);
+        // StringBuilder sb = new StringBuilder();
+        // sb.append("Relatório da Empresa:\n\n");
+        // for (Vaga v : empresa.getVagas()) {
+        //     sb.append("Vaga ").append(v.getNumero())
+        //             .append(" - ").append(v.vagaDisponivel() ? "Livre" : "Ocupada")
+        //             .append("\n");
+        // }
+        // JOptionPane.showMessageDialog(this, sb.toString(), "Relatório", JOptionPane.INFORMATION_MESSAGE);
+        new TelaRelatorioEmpresa(sistema, empresa);
+        dispose();
     }
 
     private void salvarSistema() {

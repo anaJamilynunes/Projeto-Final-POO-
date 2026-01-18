@@ -41,17 +41,27 @@ public class SistemaEstacionamento implements Serializable{
         return vagasDisponiveis;
     }
 
-    public Reserva fazerReserva(Cliente c, Empresa e, Vaga v, LocalTime horario)
+     public Reserva fazerReserva(Cliente c, Empresa e, Vaga v, LocalTime horario)
             throws VagaIndisponivelException {
 
+        if (!v.vagaDisponivel()) {
+            throw new VagaIndisponivelException();
+        }
 
         java.time.LocalTime agora = java.time.LocalTime.now();
-Reserva novaReserva = new Reserva(c, e, v, horario);
+        Reserva novaReserva = new Reserva(c, e, v, horario);
 
-    reservas.add(novaReserva);
-    c.reservarVaga(novaReserva);
-    return novaReserva;
-}
+        RegistroReserva registro = new RegistroReserva(c, v, horario);
+
+
+        // associa tudo
+        novaReserva.setRegistro(registro);
+        e.adicionarRegistro(registro);
+
+            reservas.add(novaReserva);
+            c.reservarVaga(novaReserva);
+            return novaReserva;
+        }
 
     public Reserva fazerReserva(Cliente c, Vaga v)
             throws VagaIndisponivelException {
@@ -96,6 +106,10 @@ public void liberarReserva(Reserva reserva){
         return vagaReservada;
     }
 
+    public ArrayList<Reserva> getReservas() {
+        return reservas;
+    }
+
     public void reservarVaga(Vaga vaga) {
         this.vagaReservada = vaga;
     }
@@ -120,7 +134,6 @@ public void liberarReserva(Reserva reserva){
     reservas.add(reserva);
     cliente.reservarVaga(reserva);
 
-    // ✅ ESTA É A LINHA IMPORTANTE DA SOLUÇÃO MÍNIMA:
     this.vagaReservada = vaga;
 }
 

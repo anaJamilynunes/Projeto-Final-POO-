@@ -192,18 +192,6 @@ public class EntradaEmpresa extends JFrame {
 });
 
 
-    /*entrar.addActionListener(e -> {
-    SistemaEstacionamento sistema = ArquivoUtil.carregarSistema();
-    Empresa empresa = sistema.buscarEmpresaPorCnpj(tfCnpj.getText());
-
-    if (empresa != null) {
-        new TelaEmpresa(sistema, empresa);
-        dispose();
-    } else {
-        JOptionPane.showMessageDialog(this, "Empresa não encontrada.");
-    }
-    });*/
-
     painel.add(entrar);
 
 
